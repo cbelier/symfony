@@ -1,0 +1,43 @@
+{% extends 'adminBundle::layout.html.twig' %}
+
+{% block start %}
+
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Titre</th>
+                  <th>Description</th>
+                  <th>Prix</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                {% for product in products %}
+                  <tr>
+                    <td> {{ product.id }}</td>
+                    <td> {{ product.title|default('pas de titre')|upper }}</td>
+                    <td> {{ product.description }}</td>
+                    <td> {{ product.prix }}</td>
+                  </tr>
+
+                {% endfor %}
+                
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>ID</th>
+                  <th>Titre</th>
+                  <th>Description</th>
+
+                  <th>Prix</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+      
+
+
+    </section>
+    {% endblock %}
