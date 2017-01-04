@@ -88,42 +88,47 @@ class ProductController extends Controller
             "description" => "lorem ipsum",
             "date_created" => new \DateTime('now'),
             "prix" => 410
-        ]
+        ],
+        1 => [
+            "id" => 12,
+            "title" => "Homme",
+            "description" => "lorem ipsum \n suite du contenu",
+            "date_created" => new \DateTime('now'),
+            "active" => true
+        ],
+        2 => [
+            "id" => 2,
+            "title" => "Femme",
+            "description" => "<strong>lorem</strong> ipsum",
+            "date_created" => new \DateTime('-10 Days'),
+            "active" => true
+        ],
+        3 => [
+            "id" => 3,
+            "title" => "Enfant",
+            "description" => "lorem ipsum",
+            "date_created" => new \DateTime('-1 Days'),
+            "active" => false
+        ],
     ];
     }
 
     /**
-     * @Route("/admin/products", name="products")
+     * @Route("/products", name="products")
      */
     public function productAction()
     {
-        $moyenne= 0;
-        $mini = $this->products[0]["prix"];
-
-        foreach ($this->products as $product)
-        {
-            $moyenne += $product["prix"];
-
-            if ($mini>$product["prix"]) {
-                $mini = $product["prix"];
-            }
-        }
-        $Nb = sizeof($this->products);
-        $moyenne = $moyenne/$Nb;
-
 
         return $this->render('Products/products.html.twig',
                              [
                                'products' => $this->products,
-                                 'moyenne' => $moyenne,
-                                 'prix_mini' => $mini,
-                                 'firstname' => "Charlie",
+                               'firstname' => "Charlie",
                                 'lastname' => "BELIER"
                              ]);
     }
 
     /**
-     * @Route("/admin/products/{id}", name="show_product", requirements={"id" = "\d+"})
+     * @Route("/products/{id}", name="show_product", requirements={"id" = "\d+"})
      */
     public function showProductAction($id){
 

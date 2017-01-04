@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
+
+{% block classActive %}
+    <li><a href="{{ asset('app_dev.php/admin') }}"><i class="fa fa-circle-o"></i>Page Admin</a></li>
+    <li class="active"><a href="{{ asset('app_dev.php/admin/products') }}"><i class="fa fa-circle-o"></i>Page Produits </a></li>
+    <li><a href="{{ asset('app_dev.php/contact') }}"><i class="fa fa-circle-o"></i>Aide TWIG </a></li>
+
+{% endblock %}
+
+
+{% block start %}
+
+
+                  <div class="box box-body">
+
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Titre</th>
+                              <th>Description</th>
+                              <th>Date</th>
+                              <th>Prix</th>
+                              <th>ghjg</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td> {{ product.id }}</td>
+                                  <td> {{ product.title|default('pas de titre')|upper }}</td>
+                                  <td> {{ product.description }}</td>
+                                  <td> {{ product.date_created|date("m/d/Y") }}</td>
+                                  <td> {{ product.prix }}</td>
+                                  <td>
+                                      <button class="btn btn-warning ">Edit</button>
+                                      <button class="btn btn-danger ">Delete</button>
+                                  </td>
+
+                              </tr>
+                          </tbody>
+
+                      </table>
+                  </div>
+    {% endblock %}
+
+
+{% block js %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+{% endblock %}
+
+

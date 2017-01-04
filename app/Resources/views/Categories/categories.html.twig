@@ -23,8 +23,8 @@
                     <th>Titre</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Prix</th>
-                    <th>ghjg</th>
+                    <th>Etat</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,11 +32,11 @@
                   <tr>
                         <td> {{ product.id }}</td>
                         <td> {{ product.title|default('pas de titre')|upper }}</td>
-                        <td> {{ product.description }}</td>
+                        <td> {{ product.description|raw|nl2br|slice(0, 30) }} ({{ product.description|striptags|length }} caractères)</td>
                         <td> {{ product.date_created|date("m/d/Y") }}</td>
-                        <td> {{ product.prix|default('0')}}</td>
-                    <td>
-                        <a href="{{ path('show_product', {id:product.id}) }}"><button class="btn btn-success ">Check</button></a>
+                        <td> {% if(product.active) %}actif {% else %} non actif {% endif %}</td>
+                      <td>
+                        <a href="{{ path('show_cat', {id:product.id}) }}"><button class="btn btn-success ">Check</button></a>
                         <button class="btn btn-warning ">Edit</button>
                         <button class="btn btn-danger ">Delete</button>
                     </td>
@@ -44,10 +44,7 @@
                   </tr>
 
                 {% endfor %}
-
-                <h3>Moyenne des prix: {{ moyenne }}</h3>
-                <h3>Prix le plus bas: {{ prix_mini }}</h3>
-
+                <h3>Nombre de catégories {{ products|length }}</h3>
                 
                 </tbody>
 

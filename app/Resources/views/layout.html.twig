@@ -6,7 +6,7 @@
 
     <header class="main-header">
       <!-- Logo -->
-      <a href="admin" class="logo">
+      <a href="" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="{{ asset("logo-mini") }}"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
@@ -218,7 +218,7 @@
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ asset("dist/img/user2-160x160.jpg") }}" class="user-image" alt="User Image">
-                <span class="hidden-xs">Alexander Pierce</span>
+                <span class="hidden-xs">LE pervers :D</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
@@ -275,7 +275,7 @@
             <img src="{{ asset("dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>Alexander Pierce</p>
+            <p>LE pervers :D</p>
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
@@ -316,10 +316,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ asset("pages/layout/top-nav.html") }}"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-              <li><a href="{{ asset("pages/layout/boxed.html") }}"><i class="fa fa-circle-o"></i> Boxed</a></li>
-              <li><a href="{{ asset("pages/layout/fixed.html") }}"><i class="fa fa-circle-o"></i> Fixed</a></li>
-              <li><a href="{{ asset("pages/layout/collapsed-sidebar.html") }}"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+              <li><a href="{{ asset("app_dev.php/contact") }}"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
             </ul>
           </li>
 
@@ -331,22 +328,22 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ asset("pages/charts/chartjs.html") }}"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-              <li><a href="{{ asset("pages/charts/morris.html") }}"><i class="fa fa-circle-o"></i> Morris</a></li>
-              <li><a href="{{ asset("pages/charts/flot.html") }}"><i class="fa fa-circle-o"></i> Flot</a></li>
-              <li><a href="{{ asset("pages/charts/inline.html") }}"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+              <li><a href="{{ asset("app_dev.php/admin/products") }}"><i class="fa fa-circle-o"></i> Consulter</a></li>
+              <li><a href="{{ asset("pages/charts/chartjs.html") }}"><i class="fa fa-circle-o"></i> Ajouter</a></li>
+              <li><a href="{{ asset("pages/charts/morris.html") }}"><i class="fa fa-circle-o"></i> Modifier</a></li>
+              <li><a href="{{ asset("pages/charts/flot.html") }}"><i class="fa fa-circle-o"></i> Supprimer</a></li>
             </ul>
           </li>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-laptop"></i>
-              <span>UI Elements</span>
+              <span>Catégories</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ asset("pages/UI/general.html") }}"><i class="fa fa-circle-o"></i> General</a></li>
+              <li><a href="{{ asset("app_dev.php/admin/categories") }}"><i class="fa fa-circle-o"></i>Liste des Catégories</a></li>
               <li><a href="{{ asset("pages/UI/icons.html") }}"><i class="fa fa-circle-o"></i> Icons</a></li>
               <li><a href="{{ asset("pages/UI/buttons.html") }}"><i class="fa fa-circle-o"></i> Buttons</a></li>
               <li><a href="{{ asset("pages/UI/sliders.html") }}"><i class="fa fa-circle-o"></i> Sliders</a></li>
@@ -699,11 +696,6 @@
   </div>
   <!-- ./wrapper -->
 
-
-
-
-  {% block js %}
-  {% endblock %}
 
 
 {% endblock %}
