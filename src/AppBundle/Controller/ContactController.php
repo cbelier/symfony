@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ContactController extends Controller
 {
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact-old", name="contact-old")
      */
     public function contactAction(Request $request)
     {

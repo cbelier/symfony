@@ -12,7 +12,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('adminBundle:Default:index.html.twig', 
+        return $this->render('Default/index.html.twig',
                              [
                                'firstname' => 'Charlie',
                                'lastname' => 'BELIER'

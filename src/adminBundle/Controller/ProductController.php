@@ -41,8 +41,57 @@ class ProductController extends Controller
             "date_created" => new \DateTime('now'),
             "prix" => 410
         ],
+          [
+              "id" => 5,
+              "title" => "",
+              "description" => "lorem ipsum",
+              "date_created" => new \DateTime('now'),
+              "prix" => 410
+          ],
+          [
+              "id" => 6,
+              "title" => "",
+              "description" => "lorem ipsum",
+              "date_created" => new \DateTime('now'),
+              "prix" => 410
+          ],
+          [
+              "id" => 7,
+              "title" => "",
+              "description" => "lorem ipsum",
+              "date_created" => new \DateTime('now'),
+              "prix" => 410
+          ],
+          [
+              "id" => 8,
+              "title" => "",
+              "description" => "lorem ipsum",
+              "date_created" => new \DateTime('now'),
+              "prix" => 410
+          ],
+          [
+              "id" => 9,
+              "title" => "",
+              "description" => "lorem ipsum",
+              "date_created" => new \DateTime('now'),
+              "prix" => 410
+          ],
+          [
+              "id" => 10,
+              "title" => "",
+              "description" => "lorem ipsum",
+              "date_created" => new \DateTime('now'),
+              "prix" => 410
+          ],
+          [
+              "id" => 11,
+              "title" => "",
+              "description" => "lorem ipsum",
+              "date_created" => new \DateTime('now'),
+              "prix" => 410
+          ]
     ];
-        return $this->render('adminBundle:Products:products.html.twig', 
+        return $this->render('Products/products.html.twig',
                              [
                                'products' => $products,
                                'firstname' => "Charlie",

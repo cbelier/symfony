@@ -1,8 +1,14 @@
 {% extends 'layout.html.twig' %}
+{% block stylesheets %}
 
-{% block body %}
-    <h1>{{ prenom }}</h1>
-    <h2>{{ nom }}</h2>
+	<link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
+
+
+
+
+{% block start %}
+
     <p>Mon voisin est un geek :D</p>
 
     <h3> 1- Afficher le titre et la description de tous les produits</h3>
@@ -110,12 +116,12 @@
 
 	<h3> 10- Créer une variable avec votre prénom dans le controller. Créer une autre variable avec votre nom dans le controller.</h3>
 	<ul>
-    	<li>{{ nom }}</li>
-    	<li>{{ prenom }}</li>
+    	<li>{{ firstname }}</li>
+    	<li>{{ lastname }}</li>
 	</ul>
 
 	<h3> 11- Afficher dans la vue votre prénom et votre nom en faisant une concaténation</h3>
-	<p>{{ nom ~ prenom }}</p>
+	<p>{{ firstname ~ lastname }}</p>
 
 	<h3>   12- Afficher grâce à la catégorie test dans la documentation de twig, les produits impairs (ordre des produits dans le tableau)</h3>
 	<ul>
@@ -151,8 +157,6 @@
 
     	{% endfor %}
 	</ul>
-
-
 
 
 {% endblock %}

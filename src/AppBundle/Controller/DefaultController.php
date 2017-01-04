@@ -15,7 +15,7 @@ class DefaultController extends Controller
     {
         $firstname="ludo";
         //replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        return $this->render('default-old/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
             'firstname' => $firstname
         ]);
