@@ -65,28 +65,28 @@ class ProductController extends Controller
             "id" => 8,
             "title" => "",
             "description" => "lorem ipsum",
-            "date_created" => new \DateTime('now'),
+            "date_created" => new \DateTime('-9 Days'),
             "prix" => 410
         ],
         [
             "id" => 9,
             "title" => "",
             "description" => "lorem ipsum",
-            "date_created" => new \DateTime('now'),
+            "date_created" => new \DateTime('-110 Days'),
             "prix" => 410
         ],
         [
             "id" => 10,
             "title" => "",
             "description" => "lorem ipsum",
-            "date_created" => new \DateTime('now'),
+            "date_created" => new \DateTime('-10 Days'),
             "prix" => 410
         ],
         [
             "id" => 11,
             "title" => "",
             "description" => "lorem ipsum",
-            "date_created" => new \DateTime('now'),
+            "date_created" => new \DateTime('-1 Days'),
             "prix" => 410
         ]
     ];
@@ -97,19 +97,25 @@ class ProductController extends Controller
      */
     public function productAction()
     {
-        $moyenne= 0;
+        $somme= 0;
+        $moyenne = 0;
+        $i = 0;
+        $tab = [];
         $mini = $this->products[0]["prix"];
 
         foreach ($this->products as $product)
         {
-            $moyenne += $product["prix"];
+            $i++;
+            $somme += $product["prix"];
 
             if ($mini>$product["prix"]) {
                 $mini = $product["prix"];
             }
+            $tab[$i]=serialize($product["date_created"]);
         }
+
         $Nb = sizeof($this->products);
-        $moyenne = $moyenne/$Nb;
+        $moyenne = $somme/$Nb;
 
 
         return $this->render('Products/products.html.twig',
@@ -118,6 +124,7 @@ class ProductController extends Controller
                                  'moyenne' => $moyenne,
                                  'prix_mini' => $mini,
                                  'firstname' => "Charlie",
+                                 'dates' => $tab,
                                 'lastname' => "BELIER"
                              ]);
     }
