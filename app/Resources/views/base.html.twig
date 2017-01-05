@@ -73,6 +73,14 @@
 
 
     <script src="{{ asset("dist/js/demo.js") }}"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('.js-datepicker').datepicker({
+                    format: 'yyyy-mm-dd'
+                });
+            });
+        </script>
     {% endblock %}
 
 

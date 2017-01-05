@@ -49,6 +49,25 @@ class AdmincontactController extends Controller
             $data = $formContact->getData();
 
             // Envoie du mail
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Formulaire de contact')
+                ->setFrom($data['email'])
+                ->setTo('recipient@example.com')
+                ->setBody(
+                        $this->renderView(
+                            'emails/formulaire-contact.html.twig',
+                            ['data' => $data]),
+                            'text/html'
+                        )
+
+                ->addPart(
+                        $this->renderView(
+                            'emails/formulaire-contact.txt.twig',
+                            ['data' => $data]),
+                            'text/plain'
+                        );
+
+            $this->get('mailer')->send($message);
 
             // Affichage d'un message de success
             $this->addFlash('success', 'Votre email n\'a pas été envoyé');
