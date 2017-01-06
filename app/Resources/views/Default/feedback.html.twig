@@ -22,7 +22,14 @@
     {% endfor %}
 
 
-    {{ form_start(formContact) }}
+    {{ form_start(formContact,
+        {
+            attr:
+            {
+                class:"formulaire",
+                novalidate: "novalidate"
+            }
+        })}}
 
     <div>
         {{ form_errors(formContact.firstname) }}

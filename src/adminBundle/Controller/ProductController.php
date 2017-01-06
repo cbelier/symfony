@@ -1,7 +1,9 @@
 <?php
 
 namespace adminBundle\Controller;
-
+use Symfony\Component\HttpFoundation\Request;
+use adminBundle\Entity\Product;
+use adminBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -11,6 +13,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
+        /*
         $this->products = [
         [
             "id" => 1,
@@ -90,6 +93,9 @@ class ProductController extends Controller
             "prix" => 410
         ]
     ];
+        */
+
+
     }
 
     /**
@@ -97,34 +103,37 @@ class ProductController extends Controller
      */
     public function productAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository("adminBundle:Product")->findAll();
         $somme= 0;
         $moyenne = 0;
         $i = 0;
         $tab = [];
-        $mini = $this->products[0]["prix"];
+        $mini = 99999;
 
-        foreach ($this->products as $product)
+
+        foreach ($products as $product)
         {
             $i++;
-            $somme += $product["prix"];
+            $somme += $product->getPrice();
 
-            if ($mini>$product["prix"]) {
-                $mini = $product["prix"];
+            if ($mini>$product->getPrice()) {
+                $mini = $product->getPrice();
             }
-            $tab[$i]=serialize($product["date_created"]);
+            //$tab[$i]=serialize($product->getDate());
         }
 
-        $Nb = sizeof($this->products);
+        $Nb = sizeof($products);
         $moyenne = $somme/$Nb;
 
 
         return $this->render('Products/products.html.twig',
                              [
-                               'products' => $this->products,
+                               'products' => $products,
                                  'moyenne' => $moyenne,
                                  'prix_mini' => $mini,
                                  'firstname' => "Charlie",
-                                 'dates' => $tab,
+                                 //'dates' => $tab,
                                 'lastname' => "BELIER"
                              ]);
     }
@@ -134,8 +143,9 @@ class ProductController extends Controller
      */
     public function showProductAction($id){
 
-
-        $produit = [];
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository("adminBundle:Product")->find($id);
+        /*
         foreach ($this->products as $product)
         {
             if ($product["id"]==$id)
@@ -143,8 +153,9 @@ class ProductController extends Controller
                 $produit = $product;
             }
         }
+        */
 
-        if (empty($produit)){
+        if (empty($product)){
             throw $this->createNotFoundException("Le produit n'hexiste pas !");
         }
 
@@ -153,8 +164,32 @@ class ProductController extends Controller
         return $this->render('Products/indivProducts.html.twig',
             [
                 'firstname' => "Charlie",
-                'product' => $produit,
+                'product' => $product,
                 'lastname' => "BELIER"
             ]);
+    }
+
+    /**
+     * @Route("admin/products/creer", name="product_create")
+     */
+    public function createAction(Request $request)
+    {
+        $product = new Product();
+        $formProduct = $this->createForm(ProductType::class, $product);
+        $formProduct->handleRequest($request);
+
+        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em -> persist($product);//Doctrine est au courant des changements
+            $em -> flush();//On force
+            // sauvegarde du produit
+
+            $this->addFlash('success', 'Votre produit a bien été ajouté');
+
+            return $this->redirectToRoute('product_create');
+        }
+
+        return $this->render('Products/create.html.twig', ['formProduct' => $formProduct->createView()]);
     }
 }

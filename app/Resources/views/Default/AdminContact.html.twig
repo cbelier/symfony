@@ -20,7 +20,11 @@
     {% endfor %}
 
 
-  {{ form_start(formContact) }}
+    {% form_theme   formContact   _self %}
+
+    {%- block form_label -%}
+        <strong>Modification de l'affichage d'un label</strong>
+    {%- endblock form_label -%}
 
       <div>
         {# affiche les erreurs du champ firstname #}
@@ -87,13 +91,13 @@
 
     <div>
         {{ form_widget(formContact.save,
-            {
-                'label': 'Envoyer',
-                'type' : 'submit',
-                attr: {
-                class: "btn btn-default"
-                }
-            })
+        {
+            'label': 'Envoyer',
+            'type' : 'submit',
+            attr: {
+            class: "btn btn-default"
+        }
+        })
         }}
     </div>
 

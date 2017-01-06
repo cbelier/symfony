@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class AdmincontactController extends Controller
 {
@@ -17,12 +19,53 @@ class AdmincontactController extends Controller
      */
     public function AdmincontactAction(Request $request)
     {
-        //Ici on fait un formulaire et on ajoute les champs avec la methode add
         $formContact = $this->createFormBuilder()
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('content', TextareaType::class)
+        //Ici on fait un formulaire et on ajoute les champs avec la methode add
+        ->add('firstname', TextType::class, [
+        'constraints' =>
+            [
+                new Assert\NotBlank(['message' => 'Veuillez rentrer votre prenom']),
+                new Assert\Length(array(
+                    'min'        => 2,
+                    'minMessage' => 'Ton prénom doit contenir au moins de 2 lettres'
+                ))
+            ]
+    ])
+        ->add('lastname', TextType::class, [
+            'constraints' =>
+                [
+                    new Assert\NotBlank(['message' => 'Veuillez rentrer votre nom'])
+                ]
+        ])
+        ->add('email', EmailType::class, [
+            'constraints' =>
+                [
+                    new Assert\NotBlank(['message' => 'Veuillez rentrer un email']),
+                    new Assert\Email([
+                        'message' => 'Votre email {{ value }} est invalide',
+                        'checkMX' => true,
+                    ])
+                ]
+        ])
+        ->add('content', TextareaType::class, [
+            'constraints' =>
+                [
+                    new Assert\NotBlank(['message' => 'Veuillez rentrer votre message']),
+                    new Assert\Length(array(
+                        'min' => 10,
+                        'max' => 150,
+                        'minMessage' => 'Nombre de caractère maximum: 150',
+                        'maxMessage' => 'Nombre de caractère minimum: 10'
+                    )),
+                    new Assert\Regex(array(
+                        'pattern' => (
+                        "/pute|petite(\s|&nbsp;)*pute|grosse(\s|&nbsp;)*pute|sale(\s|&nbsp;)*pute|espèce(\s|&nbsp;)*de(\s|&nbsp;)*pute|espece(\s|&nbsp;)*de(\s|&nbsp;)*pute|es(\s|&nbsp;)*une(\s|&nbsp;)*pute|es(\s|&nbsp;)*qu'une(\s|&nbsp;)*pute|putain|sal0pe |petite(\s|&nbsp;)*sal0pe|grosse(\s|&nbsp;)*sal0pe|sale(\s|&nbsp;)*sal0pe|espèce(\s|&nbsp;)*de(\s|&nbsp;)*sal0pe|espece(\s|&nbsp;)*de(\s|&nbsp;)*salope|es(\s|&nbsp;)*une(\s|&nbsp;)*salope|es(\s|&nbsp;)*qu'une(\s|&nbsp;)*salope|saloppe|(\s|&nbsp;)*de(\s|&nbsp;)*merde/i"
+                        ),
+                        'match' => false,
+                        'message' => 'Veuillez surveiller votre langage'
+                    ))
+                ]
+        ])
             ->add('save', ButtonType::class)
             ->getForm();
 

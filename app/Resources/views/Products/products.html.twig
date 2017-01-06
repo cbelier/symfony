@@ -22,7 +22,7 @@
                     <th>ID</th>
                     <th>Titre</th>
                     <th>Description</th>
-                    <th>Date</th>
+                    <!--<th>Date</th>-->
                     <th>Prix</th>
                     <th>ghjg</th>
                 </tr>
@@ -33,7 +33,7 @@
                         <td> {{ product.id }}</td>
                         <td> {{ product.title|default('pas de titre')|upper }}</td>
                         <td> {{ product.description }}</td>
-                        <td> {{ product.date_created|date("m/d/Y") }}</td>
+                        <!--<td> {#{{ product.date_created|date("m/d/Y") }}#}</td>-->
                         <td> {{ product.prix|default('0')}}</td>
                     <td>
                         <a href="{{ path('show_product', {id:product.id}) }}"><button class="btn btn-success ">Check</button></a>
