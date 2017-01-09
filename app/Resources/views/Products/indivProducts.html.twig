@@ -14,6 +14,13 @@
 
 {% block start %}
 
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
 
                   <div class="box box-body">
 
@@ -36,8 +43,8 @@
                                   {#<td> {{ product.date_created|date("m/d/Y") }}</td>#}
                                   <td> {{ product.price }}</td>
                                   <td>
-                                      <button class="btn btn-warning ">Edit</button>
-                                      <button class="btn btn-danger ">Delete</button>
+                                      <a href="{{ path('product_edit', {id:product.id}) }}"><button class="btn btn-warning ">Edit</button></a>
+                                      <a href="{{ path('product_remove', {id:product.id}) }}"><button class="btn btn-danger ">Delete</button></a>
                                   </td>
 
                               </tr>

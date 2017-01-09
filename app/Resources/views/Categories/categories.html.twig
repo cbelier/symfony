@@ -4,47 +4,45 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
 
-{% block classActive %}
-    <li><a href="{{ asset('app_dev.php/admin') }}"><i class="fa fa-circle-o"></i>Page Admin</a></li>
-    <li class="active"><a href="{{ asset('app_dev.php/admin/products') }}"><i class="fa fa-circle-o"></i>Page Produits </a></li>
-    <li><a href="{{ asset('app_dev.php/contact') }}"><i class="fa fa-circle-o"></i>Aide TWIG </a></li>
-
-{% endblock %}
-
-
 {% block start %}
+
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
 
             <div class="box box-body">
 
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
+
+                <table id="example1" class="table table-bordered table-striped">
+                    <a href="{{ path('categorie_create') }}"><button class="btn btn-success ">Créer une catégorie</button></a>
+
+                    <thead>
                 <tr>
                     <th>ID</th>
                     <th>Titre</th>
                     <th>Description</th>
-                    <th>Date</th>
-                    <th>Etat</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for product in products %}
+                {% for categorie in categories %}
                   <tr>
-                        <td> {{ product.id }}</td>
-                        <td> {{ product.title|default('pas de titre')|upper }}</td>
-                        <td> {{ product.description|raw|nl2br|slice(0, 30) }} ({{ product.description|striptags|length }} caractères)</td>
-                        <td> {{ product.date_created|date("m/d/Y") }}</td>
-                        <td> {% if(product.active) %}actif {% else %} non actif {% endif %}</td>
+                        <td> {{ categorie.id }}</td>
+                        <td> {{ categorie.title|default('Pas de titre')|upper }}</td>
+                        <td> {{ categorie.description|raw|nl2br|slice(0, 30) }} ({{ categorie.description|striptags|length }} caractères)</td>
                       <td>
-                        <a href="{{ path('show_cat', {id:product.id}) }}"><button class="btn btn-success ">Check</button></a>
-                        <button class="btn btn-warning ">Edit</button>
-                        <button class="btn btn-danger ">Delete</button>
+                        <a href="{{ path('show_categorie', {id:categorie.id}) }}"><button class="btn btn-success ">Show</button></a>
+                          <a href="{{ path('categorie_edit', {id:categorie.id}) }}"><button class="btn btn-warning ">Edit</button></a>
+                          <a href="{{ path('categorie_remove', {id:categorie.id}) }}"><button class="btn btn-danger ">Delete</button></a>
                     </td>
 
                   </tr>
 
                 {% endfor %}
-                <h3>Nombre de catégories {{ products|length }}</h3>
+                <h3>Nombre de catégories {{ categories|length }}</h3>
                 
                 </tbody>
 

@@ -5,6 +5,13 @@
 
     {{ form_start(formProduct) }}
 
+    {# Affichage du message de success	#}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
     {{ form_row(formProduct) }}
 
     <button>Ajouter</button>

@@ -1,0 +1,64 @@
+
+{% extends 'layout.html.twig' %}
+
+{% block start %}
+
+    {% form_theme   formCategorie   _self %}
+
+
+    <div>
+        {# affiche les erreurs du champ firstname #}
+        {{ form_errors(formCategorie.title) }}
+
+        {# affiche la balise label du champ firtsname #}
+        {{ form_label(formCategorie.title, "Titre", {label_attr: {class: 'Titre'} } ) }}
+
+        {# affiche la balise input de type text du champ firtsname #}
+        {{ form_widget(formCategorie.title,
+        {
+            attr: {
+            placeholder: 'Titre',
+            class: "form-control",
+            data: "titre"
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formCategorie.description) }}
+        {{ form_label(formCategorie.description, "Description", {label_attr: {class: 'Description'} } ) }}
+        {{ form_widget(formCategorie.description,
+        {
+            attr: {
+            placeholder: 'Description',
+            class: "form-control",
+            data: "description"
+
+        }
+        })
+        }}
+    </div>
+
+
+
+    <div>
+        {{ form_errors(formCategorie.position) }}
+        {{ form_label(formCategorie.position, "Position", {label_attr: {class: 'Position'} } ) }}
+        {{ form_widget(formCategorie.position,
+        {
+            attr: {
+            placeholder: 'Position',
+            class: "form-control",
+            data: "position"
+        }
+        })
+        }}
+    </div>
+
+    <button>Ajouter</button>
+
+
+    {{ form_end(formCategorie) }}
+
+{% endblock %}

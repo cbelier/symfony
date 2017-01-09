@@ -2,6 +2,7 @@
 
 {% block insertionLayout %}
 
+
   <div class="wrapper">
 
     <header class="main-header">
@@ -290,26 +291,24 @@
           </div>
         </form>
         <!-- /.search form -->
+
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">Menu Principal</li>
-          <li class="active treeview">
+          <li class="{% if app.request.get('_route') in ["admin", "contactadmin"] %}active{% endif %} treeview">
             <a href="#">
               <i class="fa fa-dashboard"></i> <span>Accueil</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-                {% block classActive %}
-                  <li><a href="{{ asset('app_dev.php/admin') }}"><i class="fa fa-circle-o"></i>Page Admin</a></li>
-                  <li><a href="{{ asset('app_dev.php/admin/contact') }}"><i class="fa fa-circle-o"></i>Page Contact</a></li>
-
-                {% endblock %}
+            <ul class="treeview-menu {% if app.request.get('_route') in ["admin", "contactadmin"] %}menu-open{% endif %}" {% if app.request.get('_route') in ["admin", "contactadmin"] %}style="display:block"{% endif %}>
+                  <li class="{% if app.request.get('_route') == "admin" %}active{% endif %}"><a href="{{ path('admin')}}"><i class="fa fa-circle-o"></i>Page Admin</a></li>
+                  <li class="{% if app.request.get('_route') == "contactadmin" %}active{% endif %}"><a href="{{ path('contactadmin')}}"><i class="fa fa-circle-o"></i>Page Contact</a></li>
             </ul>
           </li>
-          <li class="treeview">
-            <a href="app_dev.php/contact">
+          <li class="{% if app.request.get('_route')=="aide_twig" %}active{% endif %} treeview">
+            <a href="{{ path('aide_twig')}}">
               <i class="fa fa-files-o"></i>
               <span>Aide TWIG</span>
               <span class="pull-right-container">
@@ -317,22 +316,19 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ asset("app_dev.php/contact") }}"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+              <li class="{% if app.request.get('_route')=="aide_twig" %}active{% endif %}"><a href="{{ path('aide_twig')}}"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
             </ul>
           </li>
 
-          <li class="treeview">
-            <a href="app_dev.php/admin/products">
+          <li class="treeview-menu">
+            <a href="{{ path('products')}}">
               <i class="fa fa-th"></i> <span>Produits</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="{{ asset("app_dev.php/admin/products") }}"><i class="fa fa-circle-o"></i> Consulter</a></li>
-              <li><a href="{{ asset("pages/charts/chartjs.html") }}"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-              <li><a href="{{ asset("pages/charts/morris.html") }}"><i class="fa fa-circle-o"></i> Modifier</a></li>
-              <li><a href="{{ asset("pages/charts/flot.html") }}"><i class="fa fa-circle-o"></i> Supprimer</a></li>
+            <ul class="{% if app.request.get('_route')=="products" %}active{% endif %} treeview">
+              <li class="{% if app.request.get('_route')=="products" %}active{% endif %}"><a href="{{ path('products')}}"><i class="fa fa-circle-o"></i> Consulter</a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -344,12 +340,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ asset("app_dev.php/admin/categories") }}"><i class="fa fa-circle-o"></i>Liste des Catégories</a></li>
-              <li><a href="{{ asset("pages/UI/icons.html") }}"><i class="fa fa-circle-o"></i> Icons</a></li>
-              <li><a href="{{ asset("pages/UI/buttons.html") }}"><i class="fa fa-circle-o"></i> Buttons</a></li>
-              <li><a href="{{ asset("pages/UI/sliders.html") }}"><i class="fa fa-circle-o"></i> Sliders</a></li>
-              <li><a href="{{ asset("pages/UI/timeline.html") }}"><i class="fa fa-circle-o"></i> Timeline</a></li>
-              <li><a href="{{ asset("pages/UI/modals.html") }}"><i class="fa fa-circle-o"></i> Modals</a></li>
+              <li class="{% if app.request.get('_route')=="categories" %}active{% endif %}"><a href="{{ path('categories')}}"><i class="fa fa-circle-o"></i>Liste des Catégories</a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -360,9 +351,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ asset("pages/forms/general.html") }}"><i class="fa fa-circle-o"></i> General Elements</a></li>
-              <li><a href="{{ asset("pages/forms/advanced.html") }}"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-              <li><a href="{{ asset("pages/forms/editors.html") }}"><i class="fa fa-circle-o"></i> Editors</a></li>
+              <li><a href="{{ path('products')}}"><i class="fa fa-circle-o"></i> General Elements</a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -373,8 +362,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ asset("pages/tables/simple.html") }}"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-              <li><a href="{{ asset("pages/tables/data.html") }}"><i class="fa fa-circle-o"></i> Data tables</a></li>
+              <li><a href="{{ path('products')}}"><i class="fa fa-circle-o"></i> Simple tables</a></li>
             </ul>
           </li>
           <li>
@@ -404,48 +392,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-              <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-              <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-              <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-              <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-              <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-              <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-              <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-              <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-share"></i> <span>Multilevel</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-              <li>
-                <a href="#"><i class="fa fa-circle-o"></i> Level One
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                  <li>
-                    <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                      <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+
             </ul>
           </li>
           <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>

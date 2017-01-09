@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ContactController extends Controller
 {
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/aide_twig", name="aide_twig")
      */
     public function contactAction()
     {

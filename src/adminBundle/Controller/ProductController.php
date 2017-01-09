@@ -192,4 +192,61 @@ class ProductController extends Controller
 
         return $this->render('Products/create.html.twig', ['formProduct' => $formProduct->createView()]);
     }
+
+    /**
+     * @Route("admin/products/editer/{id}", name="product_edit")
+     */
+    public function editAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('adminBundle:Product')->find($id);
+
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        // Création du formulaire ProductType permettant de créer un produit
+        // Je lie le formulaire à mon objet $product
+        $formProduct = $this->createForm(ProductType::class, $product);
+
+        // Je lie la requête ($_POST) à mon formulaire donc à mon objet $product
+        $formProduct->handleRequest($request);
+
+        // Je valide mon formulaire
+        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+
+            // La ligne ci-dessous n'est pas obligatoire car doctrine est au courant de l'existance de $product
+            // $em->persist($product);
+            $em->flush();
+
+            $this->addFlash('success', 'Votre produit a été mis à jour');
+
+            return $this->redirectToRoute('show_product', ['id' => $id]);
+        }
+
+        return $this->render('Products/edit.html.twig', ['formProduct' => $formProduct->createView()]);
+    }
+
+    /**
+     * @Route("admin/products/supprimer/{id}", name="product_remove")
+     */
+    public function removeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('adminBundle:Product')->find($id);
+
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        $em->remove($product);
+        $em->flush();
+
+        $this->addFlash('success', 'Votre produit a été supprimé');
+
+        // Redirection sur la page qui liste tous les produits
+        return $this->redirectToRoute('products');
+    }
 }
