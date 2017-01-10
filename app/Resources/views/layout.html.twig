@@ -293,6 +293,7 @@
         <!-- /.search form -->
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
+
         <ul class="sidebar-menu">
           <li class="header">Menu Principal</li>
           <li class="{% if app.request.get('_route') in ["admin", "contactadmin"] %}active{% endif %} treeview">
@@ -366,16 +367,14 @@
             </ul>
           </li>
           <li>
-            <a href="pages/calendar.html">
-              <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <a href="{{ path('brand_index')}}">
+              <i class="fa fa-calendar"></i> <span>Brand</span>
               <span class="pull-right-container">
-                <small class="label pull-right bg-red">3</small>
-                <small class="label pull-right bg-blue">17</small>
               </span>
             </a>
           </li>
           <li>
-            <a href="pages/mailbox/mailbox.html">
+            <a href="#">
               <i class="fa fa-envelope"></i> <span>Mailbox</span>
               <span class="pull-right-container">
                 <small class="label pull-right bg-yellow">12</small>
@@ -395,7 +394,7 @@
 
             </ul>
           </li>
-          <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+          <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
           <li class="header">LABELS</li>
           <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
           <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
@@ -406,6 +405,8 @@
     </aside>
 
 
+
+    {#{{ render(controller("adminBundle:Categorie:renderCategorie")) }}#}
 
 
 
@@ -434,8 +435,6 @@
         <!-- /.row (main row) -->
       </section>
     </div>
-
-
 
 
 

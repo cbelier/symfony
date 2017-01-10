@@ -1,39 +1,68 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
-    <h1>Brands list</h1>
+{% block stylesheets %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for brand in brands %}
-            <tr>
-                <td><a href="{{ path('brand_show', { 'id': brand.id }) }}">{{ brand.id }}</a></td>
-                <td>{{ brand.title }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('brand_show', { 'id': brand.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('brand_new') }}">Create a new brand</a>
-        </li>
-    </ul>
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
+
+{% block start %}
+
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    <div class="box box-body">
+
+        <h1>Brands list</h1>
+        .
+        <a href="{{ path('brand_index', { sort: "ASC" }) }}">Trier par ordre alphabétique</a>
+
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for brand in brands %}
+                <tr>
+                    <td><a href="{{ path('brand_show', { 'id': brand.id }) }}">{{ brand.id }}</a></td>
+                    <td>{{ brand.title }}</td>
+                    <td>
+                        <a href="{{ path('brand_show', { 'id': brand.id }) }}"><button class="btn btn-success ">Show</button></a>
+                        <a href="{{ path('brand_edit', { 'id': brand.id }) }}"><button class="btn btn-warning ">Edit</button></a>
+                        <a href="{{ path('brand_delete', { 'id': brand.id }) }}"><button class="btn btn-danger ">Delete</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <ul>
+            <li>
+                <a href="{{ path('brand_new') }}">Create a new brand</a>
+            </li>
+        </ul>
+
+    </div>
+{% endblock %}
+
+
+{% block js %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+{% endblock %}
+
+

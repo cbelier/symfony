@@ -1,4 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
 
 {% block body %}
     <h1>Brand</h1>

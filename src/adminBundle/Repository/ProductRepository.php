@@ -10,4 +10,137 @@ namespace adminBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function myFindAll() {
+        $query = $this->getEntityManager()
+            ->createQuery('
+            SELECT prod
+            FROM adminBundle:Product prod
+            ');
+        //die(dump($query->getResult()));
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            -select("prod")
+            ->from("adminbundle:Product", "prod")
+            ->getQuery();
+        return $query->getResult();
+    }
+
+
+    public function myFind($id) {
+
+        // Creation d'une requête DQL
+        // find() maison
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT prod
+                          FROM adminBundle:Product prod
+                          WHERE prod.id = :identifiant
+                    ')->setParameters(['identifiant' => $id]);
+
+        // Plusieurs paramètres
+     // ->setParameters([
+      	//	'identifiant' => $id,
+        //  'autre_variable' => $autre
+     // ])
+
+        //getSingleScalarResult() pour utliser un résultat style count
+
+        // Création d'une requête grâce au builder
+        // findAll() maison
+        /*
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select("prod")
+            ->from("adminBundle:Product", "prod")
+            ->getQuery();
+        */
+
+        //die(dump($query->getResult()));
+
+        return $query->getResult();
+    }
+
+
+    public function findByQuantity($id) {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT prod
+                          FROM adminBundle:Product prod
+                          WHERE prod.quantity < :identifiant
+                    ')->setParameters(['identifiant' => $id]);
+
+        die(dump($query->getResult()));
+
+        return $query->getResult();
+    }
+
+    public function findByQuantityStrict($id) {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(prod)
+                          FROM adminBundle:Product prod
+                          WHERE prod.quantity = :quantity
+                    ')->setParameters(['quantity' => $id]);
+
+        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function nbCat() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(cat)
+                          FROM adminBundle:Categorie cat
+                    ');
+
+        die(dump($query->getSingleScalarResult()));
+
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function nbCatActive($statut) {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(cat)
+                          FROM adminBundle:Categorie cat
+                          WHERE cat.active = :statut
+                    ')->setParameters(['statut' => $statut]);
+
+        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function nbCatActiveAndNot() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(cat)
+                          FROM adminBundle:Categorie cat
+                          GROUP BY cat.active
+                    ');
+
+        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function nbProduct() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(prod)
+                          FROM adminBundle:Product prod
+                    ');
+
+        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
 }

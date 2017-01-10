@@ -4,13 +4,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
 
-{% block classActive %}
-    <li><a href="{{ asset('app_dev.php/admin') }}"><i class="fa fa-circle-o"></i>Page Admin</a></li>
-    <li class="active"><a href="{{ asset('app_dev.php/admin/products') }}"><i class="fa fa-circle-o"></i>Page Produits </a></li>
-    <li><a href="{{ asset('app_dev.php/contact') }}"><i class="fa fa-circle-o"></i>Aide TWIG </a></li>
-
-{% endblock %}
-
 
 {% block start %}
     {# Affichage du message de success	#}
@@ -40,7 +33,7 @@
                         <td> {{ product.title|default('pas de titre')|upper }}</td>
                         <td> {{ product.description }}</td>
                         <!--<td> {#{{ product.date_created|date("m/d/Y") }}#}</td>-->
-                        <td> {{ product.prix|default('0')}}</td>
+                        <td> {{ product.price|default('0')}}</td>
                     <td>
                         <a href="{{ path('show_product', {id:product.id}) }}"><button class="btn btn-success ">Check</button></a>
                         <a href="{{ path('product_edit', {id:product.id}) }}"><button class="btn btn-warning ">Edit</button></a>
@@ -48,6 +41,8 @@
                     </td>
 
                   </tr>
+                    <p>Marque: {{ product.brand.title }}</p>
+                    {{ dump(product) }}
 
                 {% endfor %}
 
@@ -58,6 +53,8 @@
                 </tbody>
 
               </table>
+
+
             </div>
 
     {% endblock %}

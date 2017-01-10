@@ -5,7 +5,8 @@ namespace adminBundle\Controller;
 use adminBundle\Entity\Brand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Brand controller.
@@ -20,11 +21,18 @@ class BrandController extends Controller
      * @Route("/", name="brand_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+
+        $temp = $request->query->get("sort", "ASC");
+
+        // test au cas où l'on n'a pas ASC ou DESC pour sort
+        if (!in_array($temp, ['ASC', 'DESC'])) $temp = 'ASC';
+
+
         $em = $this->getDoctrine()->getManager();
 
-        $brands = $em->getRepository('adminBundle:Brand')->findAll();
+        $brands = $em->getRepository('adminBundle:Brand')->findBy([], ["title"=>$temp]);
 
         return $this->render('brand/index.html.twig', array(
             'brands' => $brands,
