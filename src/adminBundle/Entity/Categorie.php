@@ -24,8 +24,15 @@ class Categorie
      * @ORM\GeneratedValue(strategy="AUTO")
      *
      */
-
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="Product", mappedBy="categories")
+     *
+     */
+    private $products;
 
     /**
      * @var string
@@ -184,5 +191,46 @@ class Categorie
     public function getActive()
     {
         return $this->active;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \adminBundle\Entity\Product $product
+     *
+     * @return Categorie
+     */
+    public function addProduct(\adminBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \adminBundle\Entity\Product $product
+     */
+    public function removeProduct(\adminBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

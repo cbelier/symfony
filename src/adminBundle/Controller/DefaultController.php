@@ -19,14 +19,16 @@ class DefaultController extends Controller
         //$produitNonDisponible = $em->getRepository('adminBundle:Product')->nbCat();
         //$produitNonDisponible = $em->getRepository('adminBundle:Product')->nbCatActive(1);
         //$produitNonDisponible = $em->getRepository('adminBundle:Product')->nbCatActiveAndNot();
-        $produitNonDisponible = $em->getRepository('adminBundle:Product')->nbProduct();
+        //$nbProduct = $em->getRepository('adminBundle:Product')->nbProduct();
+        //$totalQteProduits = $em->getRepository('adminBundle:Product')->totalQteProduits();
+        //$trouverProduit = $em->getRepository('adminBundle:Product')->findProduct();
+        //$trouverProduit = $em->getRepository('adminBundle:Product')->findReg();
 
-        nbCat
+
+
 
         return $this->render('Default/index.html.twig',
                              [
-                                 'quantiteInferieur20' => $quantiteInferieur20,
-                                 'produitNonDisponible' => $produitNonDisponible,
                                  'firstname' => 'Charlie',
                                'lastname' => 'BELIER'
                              ]);

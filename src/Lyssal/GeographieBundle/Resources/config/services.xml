@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <imports>
+        <import resource="manager.xml" />
+        <import resource="decorator.xml" />
+        <import resource="appellation.xml" />
+        <import resource="admin.xml" />
+    </imports>
+    
+    <parameters>
+        <parameter key="lyssal.geographie.entity.code_postal.class">Lyssal\GeographieBundle\Entity\CodePostal</parameter>
+        <parameter key="lyssal.geographie.entity.departement.class">Lyssal\GeographieBundle\Entity\Departement</parameter>
+        <parameter key="lyssal.geographie.entity.langue.class">Lyssal\GeographieBundle\Entity\Langue</parameter>
+        <parameter key="lyssal.geographie.entity.pays.class">Lyssal\GeographieBundle\Entity\Pays</parameter>
+        <parameter key="lyssal.geographie.entity.region.class">Lyssal\GeographieBundle\Entity\Region</parameter>
+        <parameter key="lyssal.geographie.entity.ville.class">Lyssal\GeographieBundle\Entity\Ville</parameter>
+    </parameters>
+    
+    <services>
+    	<service id="lyssal.geographie.command.database.update" class="Lyssal\GeographieBundle\Command\Database\UpdateCommand">
+    		<argument type="service" id="doctrine" />
+    		<argument type="service" id="file_locator" />
+    		<argument type="service" id="lyssal.geographie.manager.pays" />
+    		<argument type="service" id="lyssal.geographie.manager.region" />
+    		<argument type="service" id="lyssal.geographie.manager.departement" />
+    		<argument type="service" id="lyssal.geographie.manager.ville" />
+    		<argument type="service" id="lyssal.geographie.manager.code_postal" />
+            <tag name="console.command" />
+        </service>
+    </services>
+
+</container>

@@ -1,0 +1,16 @@
+<?php
+
+namespace adminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Brand
+ *
+ * @ORM\Table(name="regions")
+ * @ORM\Entity(repositoryClass="adminBundle\Repository\RegionRepository")
+ */
+class Region
+{
+
+}

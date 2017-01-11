@@ -17,13 +17,53 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             SELECT prod
             FROM adminBundle:Product prod
             ');
-        //die(dump($query->getResult()));
 
         $query = $this->getEntityManager()->createQueryBuilder()
             -select("prod")
             ->from("adminbundle:Product", "prod")
             ->getQuery();
         return $query->getResult();
+    }
+
+    //Autre méthode plus courte
+    public function findProduct(){
+            //Le paramètre product est un alias
+            $results = $this->createQueryBuilder('product')//equivalent à un findAll()
+            ->select('product.description', 'product.price', 'brand.title')
+            ->join('product.brand', 'brand')
+            ->setMaxResults(5)
+            ->setFirstResult(0)
+            ->where('product.description = :desc')
+            ->andWhere('product.price > :price')
+            ->andWhere('product.title LIKE :brand')
+            ->setParameters([
+                    'desc' => "Description du produit 1",
+                    'price' => 10,
+                    ':brand' => '%marque%'
+                ])
+            ->getQuery()
+            ->getResult();
+        die(dump($results));
+        return $results;
+    }
+
+    public function findReg(){
+        //Le paramètre product est un alias
+        $results = $this->createQueryBuilder('product')//equivalent à un findAll()
+        ->select('product.description', 'product.price', 'brand.title')
+            ->join('product.brand', 'brand')
+            ->setMaxResults(5)
+            ->setFirstResult(0)
+            ->where('product.description = :desc')
+            ->andWhere('product.price > :price')
+            ->setParameters([
+                'desc' => "Description du produit 1",
+                'price' => 10
+            ])
+            ->getQuery()
+            ->getResult();
+        die(dump($results));
+        return $results;
     }
 
 
@@ -66,7 +106,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()
             ->createQuery('
                     	  SELECT prod
-                          FROM adminBundle:Product prod
+                          FROM adminBundle:Product AS prod
                           WHERE prod.quantity < :identifiant
                     ')->setParameters(['identifiant' => $id]);
 
@@ -80,7 +120,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->getEntityManager()
             ->createQuery('
                     	  SELECT COUNT(prod)
-                          FROM adminBundle:Product prod
+                          FROM adminBundle:Product AS prod
                           WHERE prod.quantity = :quantity
                     ')->setParameters(['quantity' => $id]);
 
@@ -89,53 +129,25 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $query->getSingleScalarResult();
     }
 
-    public function nbCat() {
-
-        $query = $this->getEntityManager()
-            ->createQuery('
-                    	  SELECT COUNT(cat)
-                          FROM adminBundle:Categorie cat
-                    ');
-
-        die(dump($query->getSingleScalarResult()));
-
-
-        return $query->getSingleScalarResult();
-    }
-
-    public function nbCatActive($statut) {
-
-        $query = $this->getEntityManager()
-            ->createQuery('
-                    	  SELECT COUNT(cat)
-                          FROM adminBundle:Categorie cat
-                          WHERE cat.active = :statut
-                    ')->setParameters(['statut' => $statut]);
-
-        die(dump($query->getSingleScalarResult()));
-
-        return $query->getSingleScalarResult();
-    }
-
-    public function nbCatActiveAndNot() {
-
-        $query = $this->getEntityManager()
-            ->createQuery('
-                    	  SELECT COUNT(cat)
-                          FROM adminBundle:Categorie cat
-                          GROUP BY cat.active
-                    ');
-
-        die(dump($query->getSingleScalarResult()));
-
-        return $query->getSingleScalarResult();
-    }
 
     public function nbProduct() {
 
         $query = $this->getEntityManager()
             ->createQuery('
                     	  SELECT COUNT(prod)
+                          FROM adminBundle:Product AS prod
+                    ');
+
+        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function totalQteProduits() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT SUM(prod.quantity)
                           FROM adminBundle:Product prod
                     ');
 

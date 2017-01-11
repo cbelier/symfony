@@ -10,4 +10,47 @@ namespace adminBundle\Repository;
  */
 class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function nbCat() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(cat)
+                          FROM adminBundle:Categorie AS cat
+                    ');
+
+        die(dump($query->getSingleScalarResult()));
+
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function nbCatActive($statut) {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(cat)
+                          FROM adminBundle:Categorie AS cat
+                          WHERE cat.active = :statut
+                    ')->setParameters(['statut' => $statut]);
+
+        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function nbCatActiveAndNot() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(cat)
+                          FROM adminBundle:Categorie AS cat
+                          GROUP BY cat.active
+                    ');
+
+        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
+
 }

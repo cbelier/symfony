@@ -17,6 +17,12 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new adminBundle\adminBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            //new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            //new Lyssal\StructureBundle\LyssalStructureBundle(),
+            //new Lyssal\GeographieBundle\LyssalGeographieBundle(),
+            //new Acme\GeographieBundle\AcmeGeographieBundle(),
+            new TestBundle\TestBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

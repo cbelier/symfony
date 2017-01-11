@@ -23,7 +23,9 @@
                     <th>Description</th>
                     <!--<th>Date</th>-->
                     <th>Prix</th>
-                    <th>ghjg</th>
+                    <th>Marque</th>
+                    <th>Categories</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,15 +36,24 @@
                         <td> {{ product.description }}</td>
                         <!--<td> {#{{ product.date_created|date("m/d/Y") }}#}</td>-->
                         <td> {{ product.price|default('0')}}</td>
-                    <td>
+                      <td> {{ product.brand.title }}</td>
+                      <td>
+                          <ul>
+                              {% for category in product.categories %}
+                              <li>{{ category.title }}</li>
+                              {% endfor %}
+                          </ul>
+                      </td>
+
+
+                      <td>
                         <a href="{{ path('show_product', {id:product.id}) }}"><button class="btn btn-success ">Check</button></a>
                         <a href="{{ path('product_edit', {id:product.id}) }}"><button class="btn btn-warning ">Edit</button></a>
                         <a href="{{ path('product_remove', {id:product.id}) }}"><button class="btn btn-danger ">Delete</button></a>
                     </td>
 
                   </tr>
-                    <p>Marque: {{ product.brand.title }}</p>
-                    {{ dump(product) }}
+
 
                 {% endfor %}
 

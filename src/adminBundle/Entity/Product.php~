@@ -3,6 +3,8 @@
 namespace adminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Product
@@ -55,8 +57,20 @@ class Product
      * @ORM\ManyToOne(targetEntity="Brand")
      *
      * @ORM\JoinColumn(name="id_brand", referencedColumnName="id", nullable=false)
+     *
+     * @Assert\NotBlank(message="Veuillez renseigner ce champs")
      */
     private $brand;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="Categorie", inversedBy="products")
+     *
+     * @ORM\JoinColumn(name="products_categories")
+     *
+     */
+    private $categories;
 
 
     /**

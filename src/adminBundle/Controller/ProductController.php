@@ -222,7 +222,7 @@ class ProductController extends Controller
 
             $this->addFlash('success', 'Votre produit a été mis à jour');
 
-            return $this->redirectToRoute('show_product', ['id' => $id]);
+            return $this->redirectToRoute('products', ['id' => $id]);
         }
 
         return $this->render('Products/edit.html.twig', ['formProduct' => $formProduct->createView()]);

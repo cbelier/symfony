@@ -10,4 +10,13 @@ namespace adminBundle\Repository;
  */
 class BrandRepository extends \Doctrine\ORM\EntityRepository
 {
+    //Autre méthode plus courte
+    public function findBrand(){
+        //Le paramètre product est un alias
+        $results = $this->createQueryBuilder('brand')//equivalent à un findAll()
+        ->getQuery()
+            ->getResult();
+        die(dump($results));
+        return $results;
+    }
 }

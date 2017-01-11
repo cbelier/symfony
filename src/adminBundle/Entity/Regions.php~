@@ -1,0 +1,97 @@
+<?php
+
+namespace adminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Regions
+ *
+ * @ORM\Table(name="regions")
+ * @ORM\Entity(repositoryClass="adminBundle\Repository\RegionsRepository")
+ */
+class Regions
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="num_region", type="integer", unique=true)
+     */
+    private $numRegion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=100, unique=true)
+     */
+    private $nom;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set numRegion
+     *
+     * @param integer $numRegion
+     *
+     * @return Regions
+     */
+    public function setNumRegion($numRegion)
+    {
+        $this->numRegion = $numRegion;
+
+        return $this;
+    }
+
+    /**
+     * Get numRegion
+     *
+     * @return int
+     */
+    public function getNumRegion()
+    {
+        return $this->numRegion;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return Regions
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+}
+
