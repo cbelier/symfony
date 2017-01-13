@@ -3,7 +3,7 @@
 
 {% block start %}
 
-    {{ form_start(formProduct) }}
+    {{ form_start(formProduct, {attr:{"novalidate":"novalidate"}}) }}
 
     {# Affichage du message de success	#}
     {% for flash_message in app.session.flashBag.get('success') %}
@@ -12,7 +12,97 @@
         </div>
     {% endfor %}
 
-    {{ form_row(formProduct) }}
+    <div>
+        {{ form_errors(formProduct.title) }}
+        {{ form_label(formProduct.title, "Titre", {label_attr: {class: 'Titre'} } ) }}
+        {{ form_widget(formProduct.title,
+        {
+            attr: {
+            placeholder: 'Titre',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formProduct.description) }}
+        {{ form_label(formProduct.description, "Votre description", {label_attr: {class: 'description'} } ) }}
+        {{ form_widget(formProduct.description,
+        {
+            attr: {
+            placeholder: 'Votre description',
+            class: "form-control",
+
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formProduct.price) }}
+        {{ form_label(formProduct.price, "Prix", {label_attr: {class: 'Prix'} } ) }}
+        {{ form_widget(formProduct.price,
+        {
+            attr: {
+            placeholder: 'Prix',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formProduct.quantity) }}
+        {{ form_label(formProduct.quantity, "Quantité", {label_attr: {class: 'quantite'} } ) }}
+        {{ form_widget(formProduct.quantity,
+        {
+            attr: {
+            placeholder: 'Quantité',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formProduct.brand) }}
+        {{ form_label(formProduct.brand, "Marque", {label_attr: {class: 'Marque'} } ) }}
+        {{ form_widget(formProduct.brand,
+        {
+            attr: {
+            placeholder: 'Marque',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formProduct.categories) }}
+        {{ form_label(formProduct.categories, "Categories", {label_attr: {class: 'categories'} } ) }}
+        {{ form_widget(formProduct.categories,
+        {
+            attr: {
+            placeholder: 'Categories',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formProduct.image) }}
+        {{ form_label(formProduct.image, "Image", {label_attr: {class: 'Image'} } ) }}
+        {{ form_widget(formProduct.image,
+        {
+            attr: {
+            placeholder: 'Image',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
 
     <button>Ajouter</button>
 

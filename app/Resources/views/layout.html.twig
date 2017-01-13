@@ -227,8 +227,8 @@
                   <img src="{{ asset("dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
 
                   <p>
-                    Alexander Pierce - Web Developer
-                    <small>Member since Nov. 2012</small>
+                    Charlie Belier - Web Developer
+                    <small>Member since Jan. 2017</small>
                   </p>
                 </li>
                 <!-- Menu Body -->
@@ -317,19 +317,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="{% if app.request.get('_route')=="aide_twig" %}active{% endif %}"><a href="{{ path('aide_twig')}}"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            </ul>
-          </li>
-
-          <li class="treeview-menu">
-            <a href="{{ path('products')}}">
-              <i class="fa fa-th"></i> <span>Produits</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="{% if app.request.get('_route')=="products" %}active{% endif %} treeview">
-              <li class="{% if app.request.get('_route')=="products" %}active{% endif %}"><a href="{{ path('products')}}"><i class="fa fa-circle-o"></i> Consulter</a></li>
+              <li class="{% if app.request.get('_route')=="aide_twig" %}active{% endif %}"><a href="{{ path('aide_twig')}}"><i class="fa fa-circle-o"></i>Exemples</a></li>
             </ul>
           </li>
           <li class="treeview">
@@ -346,24 +334,24 @@
           </li>
           <li class="treeview">
             <a href="#">
-              <i class="fa fa-edit"></i> <span>Forms</span>
+              <i class="fa fa-edit"></i> <span>Products</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ path('products')}}"><i class="fa fa-circle-o"></i> General Elements</a></li>
+              <li><a href="{{ path('products')}}"><i class="fa fa-circle-o"></i>Tous les produits</a></li>
             </ul>
           </li>
           <li class="treeview">
             <a href="#">
-              <i class="fa fa-table"></i> <span>Tables</span>
+              <i class="fa fa-table"></i> <span>Brand</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ path('products')}}"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+              <li><a href="{{ path('brand')}}"><i class="fa fa-circle-o"></i>Toutes </a></li>
             </ul>
           </li>
           <li>

@@ -21,17 +21,18 @@
                     <th>ID</th>
                     <th>Titre</th>
                     <th>Description</th>
-                    <!--<th>Date</th>-->
                     <th>Prix</th>
                     <th>Marque</th>
                     <th>Categories</th>
+                    <th>Date</th>
+                    <th>Image</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for product in products %}
                   <tr>
-                        <td> {{ product.id }}</td>
+                        <td><input type="checkbox" name="allCheckBox"/></td>
                         <td> {{ product.title|default('pas de titre')|upper }}</td>
                         <td> {{ product.description }}</td>
                         <!--<td> {#{{ product.date_created|date("m/d/Y") }}#}</td>-->
@@ -43,6 +44,8 @@
                               <li>{{ category.title }}</li>
                               {% endfor %}
                           </ul>
+                      <td> {{ product.dateUpdate|date("m/d/Y")}}</td>
+                      <td><img src="{{ asset('upload/' ~ product.image) }}" alt="" width="100"><div class="delete_img">Supprimer</div></td>
                       </td>
 
 
@@ -64,8 +67,10 @@
                 </tbody>
 
               </table>
+                <a href="{{ path('product_create') }}"><button class="btn btn-success ">Create a product</button></a>
 
-
+                <a href="{{ path('product_removeMany') }}"><button class="btn btn-danger deleteMany">Delete All</button></a>
+                {{ ma_fonction()|raw }}
             </div>
 
     {% endblock %}

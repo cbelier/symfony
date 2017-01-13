@@ -13,6 +13,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
+
         /*
         $this->products = [
         [
@@ -143,6 +144,7 @@ class ProductController extends Controller
      */
     public function showProductAction($id){
 
+
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository("adminBundle:Product")->find($id);
         /*
@@ -178,9 +180,12 @@ class ProductController extends Controller
         $formProduct = $this->createForm(ProductType::class, $product);
         $formProduct->handleRequest($request);
 
+
+
         if ($formProduct->isSubmitted() && $formProduct->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
+
             $em -> persist($product);//Doctrine est au courant des changements
             $em -> flush();//On force
             // sauvegarde du produit
@@ -235,6 +240,29 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('adminBundle:Product')->find($id);
+
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        $em->remove($product);
+        $em->flush();
+
+        $this->addFlash('success', 'Votre produit a été supprimé');
+
+        // Redirection sur la page qui liste tous les produits
+        return $this->redirectToRoute('products');
+    }
+
+    /**
+     * @Route("admin/products/supprimerProduits", name="product_removeMany")
+     */
+    public function removeMany(Request $request)
+    {
+        die(dump($request));
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('adminBundle:Product')->find($tableauID);
 
         // Vérification si le produit est bien en BDD
         if (!$product) {

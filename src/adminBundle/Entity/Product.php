@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="adminBundle\Repository\ProductRepository")
+ * @ORM\EntityListeners({"adminBundle\Listener\ProductListener"})
  */
 class Product
 {
@@ -71,6 +72,30 @@ class Product
      *
      */
     private $categories;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="dateUpdate", type="datetime")
+     *
+     */
+    private $dateUpdate;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="dateCreate", type="datetime")
+     *
+     */
+    private $dateCreate;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_product", type="string")
+     */
+    private $image;
 
 
     /**
@@ -245,5 +270,77 @@ class Product
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set dateUpdate
+     *
+     * @param \DateTime $dateUpdate
+     *
+     * @return Product
+     */
+    public function setDateUpdate($dateUpdate)
+    {
+        $this->dateUpdate = $dateUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdate
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdate()
+    {
+        return $this->dateUpdate;
+    }
+
+    /**
+     * Set dateCreate
+     *
+     * @param \DateTime $dateCreate
+     *
+     * @return Product
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreate
+     *
+     * @return \DateTime
+     */
+    public function getDateCreate()
+    {
+        return $this->dateCreate;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Product
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

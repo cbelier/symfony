@@ -18,7 +18,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
         }
 
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 50; $i++) {
             $product = new Product();
             $product->setTitle('produit ' . $i)
                 ->setDescription('Description du produit ' . $i)
@@ -29,6 +29,9 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
             $brand = $arrayBrand[array_rand($arrayBrand, 1)];
             //die(dump($brand));
             $product->setBrand($brand);
+            $product->setImage('defaut.jpg');
+            $product->setDateCreate(new \DateTime());
+            $product->setDateUpdate(new \DateTime());
 
             $manager->persist($product);
             $manager->flush();
