@@ -115,6 +115,19 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function findbystock() {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT prod
+                          FROM adminBundle:Product AS prod
+                          ORDER BY prod.quantity DESC
+                    ');
+//                    ->setMaxResults(3)
+
+        return $query->getResult();
+    }
+
     public function findByQuantityStrict($id) {
 
         $query = $this->getEntityManager()
