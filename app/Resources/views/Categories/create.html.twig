@@ -6,6 +6,7 @@
     {% form_theme   formCategorie   _self %}
 
 
+    {{ form_start(formCategorie) }}
     <div>
         {# affiche les erreurs du champ firstname #}
         {{ form_errors(formCategorie.title) }}
@@ -51,6 +52,19 @@
             placeholder: 'Position',
             class: "form-control",
             data: "position"
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formCategorie.image) }}
+        {{ form_label(formCategorie.image, "Image", {label_attr: {class: 'Image'} } ) }}
+        {{ form_widget(formCategorie.image,
+        {
+            attr: {
+            placeholder: 'Image',
+            class: "form-control",
         }
         })
         }}

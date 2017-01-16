@@ -3,12 +3,12 @@
 namespace adminBundle\Listener;
 
 
-use adminBundle\Entity\Product;
+use adminBundle\Entity\Categorie;
 use adminBundle\Services\DeleteImgService;
 use adminBundle\Services\UploadService;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
-class ProductListener
+class CategorieListener
 {
     private $uploadService;
     private $defautImage;
@@ -24,9 +24,9 @@ class ProductListener
     }
 
 
-    public function prePersist(Product $entity, LifecycleEventArgs $args){
-        $entity->setDateUpdate(new \DateTime());
-        $entity->setDateCreate(new \DateTime());
+    public function prePersist(Categorie $entity, LifecycleEventArgs $args){
+        //$entity->setDateUpdate(new \DateTime());
+        //$entity->setDateCreate(new \DateTime());
 
 
         $image = $entity->getImage();
@@ -41,8 +41,8 @@ class ProductListener
         $entity->setImage($fileName);
     }
 
-    public function preUpdate(Product $entity, LifecycleEventArgs $args){
-        $entity->setDateUpdate(new \DateTime());
+    public function preUpdate(Categorie $entity, LifecycleEventArgs $args){
+        //$entity->setDateUpdate(new \DateTime());
 
         $image = $entity->getImage();
 
@@ -61,11 +61,11 @@ class ProductListener
         $entity->setImage($fileName);
     }
 
-    public function postLoad(Product $entity, LifecycleEventArgs $args){
+    public function postLoad(Categorie $entity, LifecycleEventArgs $args){
         $this->imageLoad = $entity->getImage();
     }
 
-    public function postRemove(Product $entity, LifecycleEventArgs $args){
+    public function postRemove(Categorie $entity, LifecycleEventArgs $args){
         if ($this->imageLoad !== $this->defautImage) {
             $this->deleteImgService->removeImg($this->imageLoad);
         }

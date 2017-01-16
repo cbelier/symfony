@@ -1,0 +1,3 @@
+{% for categorie in categories|sort %}
+    <a href="{{ path('public_show_categorie', {id:categorie.id}) }}" class="list-group-item">{{ categorie.title|default('Pas de titre')|upper }}</a>
+{% endfor %}

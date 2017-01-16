@@ -151,7 +151,18 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                           FROM adminBundle:Product AS prod
                     ');
 
-        die(dump($query->getSingleScalarResult()));
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function nbProductByCat($id) {
+
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    	  SELECT COUNT(prod)
+                          FROM adminBundle:Product AS prod
+                    ')->setParameters(['id' => $id]);
+
 
         return $query->getSingleScalarResult();
     }
@@ -168,4 +179,30 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
+    // Afficher les produits selon leur catégories
+    public function myFindProductionSelonCategorie($categorie_id, $nbProductPerPage, $offset) {
+        $results = $this
+            ->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->where('c.id = :idCat')
+            ->setParameters(['idCat' => $categorie_id])
+            ->setFirstResult($offset)
+            ->setMaxResults($nbProductPerPage)
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+    public function myFindProduction($nbProductPerPage, $offset) {
+        $results = $this
+            ->createQueryBuilder('p')
+            ->setFirstResult($offset)
+            ->setMaxResults($nbProductPerPage)
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+
 }

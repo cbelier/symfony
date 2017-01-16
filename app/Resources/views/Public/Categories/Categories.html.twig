@@ -1,0 +1,61 @@
+{% extends 'Public/PublicLayout.html.twig' %}
+
+{% block css %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset("public/css/heroic-features.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block insertionLayout %}
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+
+
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1>Découvrez nos instruments !</h1>
+            <p>MusicStore est l'un des sites les plus diversifié en matière de choix avec des instruments de qualités à des prix harmonieux.</p>
+            <p><a class="btn btn-primary btn-large">Guide d'achat</a>
+            </p>
+        </header>
+
+        <hr>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Instruments par catégorie</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Page Features -->
+        <div class="row text-center">
+            {% for categorie in categories %}
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img class="img-responsive" src="{{ asset('upload/' ~ categorie.image) }}" alt="">
+                        <div class="caption">
+                            <h3>{{ categorie.title|default('pas de titre')|upper }}</h3>
+                            <p>{{ categorie.description|slice(0, 30) }}[...]</p>
+                            <p>
+                                <a href="{{ path('public_show_categorie', {id:categorie.id}) }}" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+            <ul class="pagination">
+                {% for i in 1..nbpage %}
+                    <li {% if i == app.request.query.get('page', 1) %}class="active"{% endif %}><a href="{{ path('public_categories', {page:i}) }}">{{ i }}</a></li>
+                {% endfor %}
+            </ul>
+    </div>
+</div>
+    <!-- /.row -->
+
+
+{% endblock %}

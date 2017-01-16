@@ -15,16 +15,25 @@ class ProductController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository("adminBundle:Product")->findAll();
 
-        $categories = $em->getRepository("adminBundle:Categorie")->findAll();
-        asort($categories);
+
+        $nbProductPerPage = 9;
+        $page = $request->query->get('page', 1);
+        if ($page <= 0) {
+            $page = 1;
+        }
+
+        $offset = ($page - 1) * $nbProductPerPage;
+
+        $nbPages = ceil($em->getRepository('adminBundle:Product')->nbProduct()/$nbProductPerPage);
+
+        $products = $em->getRepository('adminBundle:Product')->myFindProduction($nbProductPerPage, $offset);
 
 
         return $this->render('Public/Products/index.html.twig',
             [
                 'products' => $products,
-                'categories' => $categories,
+                'nbpage' => $nbPages,
             ]);
 
     }

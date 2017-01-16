@@ -23,9 +23,16 @@ class AppExtension extends \Twig_Extension //Va chercher la classe twig de symfo
         ];
     }
 
-    public function ma_fonction(){
+    public function ma_fonction($theme = null) {
         $res = $this->doctrine->getRepository('adminBundle:Categorie')->findAll();
-        return $this->twig->render('Categories/renderCategories.html.twig', [
+
+        $template = 'Public/Categories/renderCategories.html.twig';
+
+        if ($theme == 'back') {
+            $template = 'Categories/renderCategories.html.twig';
+        }
+
+        return $this->twig->render($template, [
             'categories' => $res,
         ]);
 

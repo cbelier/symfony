@@ -18,7 +18,9 @@ class LoadCategorieData extends AbstractFixture implements OrderedFixtureInterfa
             $categorie->setTitle('Nouveau Produit')
                 ->setDescription('Description du produit')
                 ->setPosition(rand(0, 50))
-                ->setActive(1);
+                ->setActive(1)
+                ->setImage('defaut.jpg');
+
 
             $manager->persist($categorie);
             $manager->flush();

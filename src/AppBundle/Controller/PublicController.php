@@ -17,16 +17,13 @@ class PublicController extends Controller
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository("adminBundle:Product")->findAll();
 
-        $categories = $em->getRepository("adminBundle:Categorie")->findAll();
-        asort($categories);
         $produitLesPlusEnStock = $em->getRepository('adminBundle:Product')->findbystock();
 
 
         return $this->render('Public/Accueil.html.twig',
             [
                 'produitLesPlusEnStock' => $produitLesPlusEnStock,
-                'products' => $products,
-                'categories' => $categories,
+                'products' => $products
             ]);
 
     }

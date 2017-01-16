@@ -19,9 +19,6 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
                           FROM adminBundle:Categorie AS cat
                     ');
 
-        die(dump($query->getSingleScalarResult()));
-
-
         return $query->getSingleScalarResult();
     }
 
@@ -52,5 +49,17 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
+    public function myFindProduction($nbProductPerPage, $offset) {
+        $results = $this
+            ->createQueryBuilder('c')
+            ->setFirstResult($offset)
+            ->setMaxResults($nbProductPerPage)
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+
 
 }

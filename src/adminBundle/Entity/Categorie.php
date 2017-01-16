@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @ORM\Table(name="categorie")
  * @ORM\Entity(repositoryClass="adminBundle\Repository\CategorieRepository")
+ * @ORM\EntityListeners({"adminBundle\Listener\CategorieListener"})
  */
 class Categorie
 {
@@ -70,6 +71,13 @@ class Categorie
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_categorie", type="string")
+     */
+    private $image;
 
     /**
      * Get id
@@ -232,5 +240,31 @@ class Categorie
     public function getProducts()
     {
         return $this->products;
+    }
+
+
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Categorie
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

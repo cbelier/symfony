@@ -34,16 +34,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">MusicStore</a>
+                <a class="navbar-brand" href="{{ path('accueil')}}">MusicStore</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="{{ path('public_product')}}">Products</a>
                     </li>
                     <li>
-                        <a href="{{ path('public_product')}}">Product</a>
+                        <a href="{{ path('public_categories')}}">Catégories</a>
                     </li>
                     <li>
                         <a href="#">Services</a>
@@ -58,9 +58,27 @@
         <!-- /.container -->
     </nav>
 
+    <!-- Page Content -->
+    <div class="container">
 
-{% block insertionLayout %}
-    {% endblock %}
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead">Instruments par catégories</p>
+                <div class="list-group">
+                    {{ ma_fonction()|raw }}
+                </div>
+            </div>
+
+
+            <div class="col-md-9">
+                {% block insertionLayout %}
+                {% endblock %}
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
 
     <div class="container">
 
