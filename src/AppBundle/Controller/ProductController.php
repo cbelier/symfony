@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use adminBundle\Entity\Comment;
+use AppBundle\Form\PublicCommentForm;
 
 class ProductController extends Controller
 {
@@ -41,25 +43,55 @@ class ProductController extends Controller
     /**
      * @Route("public/products/{id}", name="public_show_product", requirements={"id" = "\d+"})
      */
-    public function showProductAction($id){
+    public function showProductAction($id, Request $request){
 
 
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository("adminBundle:Product")->find($id);
 
-        $categories = $em->getRepository("adminBundle:Categorie")->findAll();
-        asort($categories);
+        $objComment = new Comment();
+
+        $formComment = $this->createForm(PublicCommentForm::class, $objComment);
+        $formComment->handleRequest($request);
+
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+//            $product->addComment($objComment);
+
+            $em -> persist($objComment);//Doctrine est au courant des changements
+            $em -> flush();//On force
+            // sauvegarde du produit
+
+            $this->addFlash('success', 'Votre commentaire a bien été créer');
+
+            return $this->redirectToRoute('public_show_product', ['id' => $id]);
+        }
+
+
+        $nbProductPerPageForComment = 5;
+        $pageComment = $request->query->get('page', 1);
+        if ($pageComment <= 0) {
+            $pageComment = 1;
+        }
+
+        $offset = ($pageComment - 1) * $nbProductPerPageForComment;
+
+        $nbPages = ceil($em->getRepository('adminBundle:Comment')->nbComment()/$nbProductPerPageForComment);
+
+        $comments = $em->getRepository('adminBundle:Comment')->myFindProduction($nbProductPerPageForComment, $offset, $id);
 
         if (empty($product)){
             throw $this->createNotFoundException("Le produit n'hexiste pas !");
         }
 
-
         return $this->render('Public/Products/IndivProduct.html.twig',
             [
                 'product' => $product,
-                'categories' => $categories,
-
+                'comments' => $comments,
+                'nbpage' => $nbPages,
+                'formComment' => $formComment->createView(),
             ]);
     }
 

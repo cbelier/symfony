@@ -37,56 +37,105 @@
 
             <div class="well">
 
+
+
+                {% for comment in comments %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for i in 1..comment.note %}
+                                <span class="glyphicon glyphicon-star"></span>
+                            {% endfor %}
+                            {{ comment.author }}
+                            <span class="pull-right">{{ comment.dateCreate|date("d/m/Y") }}</span>
+                            <p>{{ comment.comment }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <hr>
+
+                {{ form_start(formComment, {attr:{"novalidate":"novalidate"}}) }}
+
+                {# Affichage du message de success	#}
+                {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+
+                <div>
+                    {{ form_errors(formComment.title) }}
+                    {{ form_label(formComment.title, "Titre", {label_attr: {class: 'Titre'} } ) }}
+                    {{ form_widget(formComment.title,
+                    {
+                        attr: {
+                        placeholder: 'Titre',
+                        class: "form-control",
+                    }
+                    })
+                    }}
+                </div>
+
+                <div>
+                    {{ form_errors(formComment.comment) }}
+                    {{ form_label(formComment.comment, "comment", {label_attr: {class: 'description'} } ) }}
+                    {{ form_widget(formComment.comment,
+                    {
+                        attr: {
+                        placeholder: 'Votre description',
+                        class: "form-control",
+
+                    }
+                    })
+                    }}
+                </div>
+
+                <div>
+                    {{ form_errors(formComment.author) }}
+                    {{ form_label(formComment.author, "author", {label_attr: {class: 'author'} } ) }}
+                    {{ form_widget(formComment.author,
+                    {
+                        attr: {
+                        placeholder: 'Auteur',
+                        class: "form-control",
+                    }
+                    })
+                    }}
+                </div>
+
+                <div>
+                    {{ form_errors(formComment.note) }}
+                    {{ form_label(formComment.note, "note", {label_attr: {class: 'note'} } ) }}
+                    {{ form_widget(formComment.note,
+                    {
+                        attr: {
+                        placeholder: 'Note',
+                        class: "form-control",
+                    }
+                    })
+                    }}
+                </div>
+
+
+                <button class="btn btn-success">Ajouter</button>
+
+                {{ form_end(formComment) }}
+
+
+
                 <div class="text-right">
-                    <a class="btn btn-success">Leave a Review</a>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">10 days ago</span>
-                        <p>This product was great in terms of quality. I would definitely buy another!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">12 days ago</span>
-                        <p>I've alredy ordered another one!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">15 days ago</span>
-                        <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                    </div>
+                    <a class="btn btn-success" href="{{ path('public_show_product', {id:product.id}) }}">Ajouter un commentaire</a>
                 </div>
 
             </div>
+
+            {% if nbpage !=1 %}
+            <ul class="pagination">
+                {% for i in 1..nbpage %}
+                    <li {% if i == app.request.query.get('page', 1) %}class="active"{% endif %}><a href="{{ path('public_show_product', {id:product.id, page:i}) }}">{{ i }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
 
         </div>
 

@@ -2,10 +2,28 @@
 # http://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+        adminBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 13
+
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    ryan:
+                        password: $2a$12$LCY0MefVIEc3TYPHV9SNnuzOfyr2p/AXIGoQJEDs4am4JwhNz/jli
+                        roles: 'ROLE_USER'
+                    admin:
+                        password: $2a$12$cyTWeE9kpq1PjqKFiWUZFuCRPwVyAZwm4XzMZ1qPUFl7/flCM3V0G
+                        roles: 'ROLE_ADMIN'
+        our_db_provider:
+                    entity:
+                        class: AppBundle:User
+                        property: username
+                        # if you're using multiple entity managers
+                        # manager_name: customer
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,6 +33,13 @@ security:
 
         main:
             anonymous: ~
+            form_login:
+                login_path: security.login
+                check_path: security.login
+
+            pattern:    ^/
+            http_basic: ~
+            provider: our_db_provider
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -22,3 +47,10 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    access_control:
+        # require ROLE_ADMIN for /admin*
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+    role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER

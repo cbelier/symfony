@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Product
  *
  * @ORM\Table(name="comment")
- * @ORM\Entity(repositoryClass="adminBundle\Repository\ContentRepository")
+ * @ORM\Entity(repositoryClass="adminBundle\Repository\CommentRepository")
  */
 class Comment
 {
@@ -64,9 +64,9 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="Product", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="comment")
      *
-     * @ORM\JoinColumn(name="Comment_product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      *
      */
     private $product;
@@ -240,5 +240,19 @@ class Comment
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \adminBundle\Entity\Product $product
+     *
+     * @return Comment
+     */
+    public function setProduct(\adminBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
     }
 }

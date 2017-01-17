@@ -13,7 +13,7 @@ class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 1; $i++) {
             $brand = new Brand();
             $brand->setTitle('un nouveau titre');
 

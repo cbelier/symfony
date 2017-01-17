@@ -74,6 +74,15 @@ class Product
     private $categories;
 
     /**
+     * @var string
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
+     *
+     * @Assert\NotBlank(message="Veuillez renseigner un commentaire")
+     */
+    private $comment;
+
+    /**
      * @var DateTime
      *
      * @ORM\Column(name="dateUpdate", type="datetime")
@@ -342,5 +351,41 @@ class Product
     public function getImage()
     {
         return $this->image;
+    }
+
+
+
+    /**
+     * Add comment
+     *
+     * @param \adminBundle\Entity\comment $comment
+     *
+     * @return Product
+     */
+    public function addComment(\adminBundle\Entity\comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \adminBundle\Entity\comment $comment
+     */
+    public function removeComment(\adminBundle\Entity\comment $comment)
+    {
+        $this->comment->removeElement($comment);
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }
