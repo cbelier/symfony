@@ -1,29 +1,17 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
 security:
-
+    # cf site http://symfony.com/doc/current/security/entity_provider.html#security-crete-user-entity
     encoders:
         adminBundle\Entity\User:
             algorithm: bcrypt
-            cost: 13
-
+            cost: 13 #nb de boucle pour encoder
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory:
-                users:
-                    ryan:
-                        password: $2a$12$LCY0MefVIEc3TYPHV9SNnuzOfyr2p/AXIGoQJEDs4am4JwhNz/jli
-                        roles: 'ROLE_USER'
-                    admin:
-                        password: $2a$12$cyTWeE9kpq1PjqKFiWUZFuCRPwVyAZwm4XzMZ1qPUFl7/flCM3V0G
-                        roles: 'ROLE_ADMIN'
         our_db_provider:
-                    entity:
-                        class: AppBundle:User
-                        property: username
-                        # if you're using multiple entity managers
-                        # manager_name: customer
+            entity:
+                class: adminBundle:User
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -33,24 +21,24 @@ security:
 
         main:
             anonymous: ~
-            form_login:
-                login_path: security.login
-                check_path: security.login
-
-            pattern:    ^/
-            http_basic: ~
-            provider: our_db_provider
             # activate different ways to authenticate
-
+            provider: our_db_provider
             # http_basic: ~
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+            form_login:
+                login_path: security.login
+                check_path: security.login
+                default_target_path: accueil
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
+            logout:
+                path: security.logout
+                target: accueil
+
     access_control:
-        # require ROLE_ADMIN for /admin*
-        - { path: ^/admin, roles: ROLE_ADMIN }
+            # require ROLE_ADMIN for /admin*
+            - { path: ^/admin, roles: ROLE_ADMIN }
 
     role_hierarchy:
-            ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN: ROLE_USER

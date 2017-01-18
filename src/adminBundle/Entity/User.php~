@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /** ATTENTION Ne pas mettre userS avec un S car table reserver à mysql
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="adminBundle\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable
 {
@@ -30,6 +30,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=64)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $token;
 
     /**
      * @ORM\ManyToMany(targetEntity="Role")
@@ -76,7 +81,11 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $list=[];
+        foreach ($this->role as $key=> $value){
+            $list[] = $value->getName();
+        }
+        return $list;
     }
 
     public function eraseCredentials()
@@ -191,5 +200,39 @@ class User implements UserInterface, \Serializable
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Add role
+     *
+     * @param \adminBundle\Entity\Role $role
+     *
+     * @return User
+     */
+    public function addRole(\adminBundle\Entity\Role $role)
+    {
+        $this->role[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \adminBundle\Entity\Role $role
+     */
+    public function removeRole(\adminBundle\Entity\Role $role)
+    {
+        $this->role->removeElement($role);
+    }
+
+    /**
+     * Get role
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }

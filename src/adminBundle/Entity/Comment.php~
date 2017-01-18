@@ -241,4 +241,18 @@ class Comment
     {
         return $this->product;
     }
+
+    /**
+     * Set product
+     *
+     * @param \adminBundle\Entity\Product $product
+     *
+     * @return Comment
+     */
+    public function setProduct(\adminBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
 }

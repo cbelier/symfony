@@ -51,6 +51,17 @@
                     <li>
                         <a href="#">Contact</a>
                     </li>
+                    <li>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                            <a href="{% if is_granted('ROLE_ADMIN') %}{{ path('admin')}}{% else %}{{ path('public_client')}}{% endif %}">Bonjour {{ app.user.username }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('security.logout')}}">Se Déconnecter</a>
+                        {% else %}
+                            <a href="{{ path('security.login')}}">Se connecter</a>
+                        {% endif %}
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

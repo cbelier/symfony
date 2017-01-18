@@ -45,41 +45,45 @@ class ProductController extends Controller
      */
     public function showProductAction($id, Request $request){
 
-
+        //On appel doctrine
         $em = $this->getDoctrine()->getManager();
+        //On récupère le produit celon sont id
         $product = $em->getRepository("adminBundle:Product")->find($id);
 
+        //On crée l'objet Comment
         $objComment = new Comment();
 
+        //Création du formulaire
         $formComment = $this->createForm(PublicCommentForm::class, $objComment);
         $formComment->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
-
 //            $product->addComment($objComment);
 
             $em -> persist($objComment);//Doctrine est au courant des changements
-            $em -> flush();//On force
-            // sauvegarde du produit
+            $em -> flush();//On force si il veut pas
+            // donc sauvegarde du commentaire :)
 
             $this->addFlash('success', 'Votre commentaire a bien été créer');
 
             return $this->redirectToRoute('public_show_product', ['id' => $id]);
         }
 
-
+        //On fixe un nombre de produit par page
         $nbProductPerPageForComment = 5;
         $pageComment = $request->query->get('page', 1);
         if ($pageComment <= 0) {
             $pageComment = 1;
         }
 
+        //On calcule l'offset
         $offset = ($pageComment - 1) * $nbProductPerPageForComment;
 
+        //On obtient le nombre de page qu'il nous faut selon le nombre de commentaire
         $nbPages = ceil($em->getRepository('adminBundle:Comment')->nbComment()/$nbProductPerPageForComment);
 
+        //On récupère le nombre de commentaire qu'il faut pour une page
         $comments = $em->getRepository('adminBundle:Comment')->myFindProduction($nbProductPerPageForComment, $offset, $id);
 
         if (empty($product)){

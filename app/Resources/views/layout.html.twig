@@ -22,6 +22,9 @@
 
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
+            <li>
+              <a href="{{ path('accueil') }}">Retour vers le site</a>
+            </li>
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -252,7 +255,7 @@
                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="{{ path('security.logout')}}" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
@@ -382,7 +385,7 @@
 
             </ul>
           </li>
-          <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+          <li><a href="{{ path('accueil')}}"><i class="fa fa-book"></i> <span>Retour vers le site</span></a></li>
           <li class="header">LABELS</li>
           <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
           <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>

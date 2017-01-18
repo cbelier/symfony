@@ -17,7 +17,7 @@
             <div class="thumbnail">
                 <img class="img-responsive" src="{{ asset('upload/' ~ product.image) }}" alt="">
                 <div class="caption-full">
-                    <h4 class="pull-right">{{ product.price }}</h4>
+                    <h4 class="pull-right">{{ product.price }} €</h4>
                     <h4><a href="#">Product Name</a>
                     </h4>
                     <p>{{ product.description }}</p>
@@ -129,7 +129,7 @@
 
             </div>
 
-            {% if nbpage !=1 %}
+            {% if nbpage !=1 or nbpage !=0%}
             <ul class="pagination">
                 {% for i in 1..nbpage %}
                     <li {% if i == app.request.query.get('page', 1) %}class="active"{% endif %}><a href="{{ path('public_show_product', {id:product.id, page:i}) }}">{{ i }}</a></li>

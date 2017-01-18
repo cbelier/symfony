@@ -1,0 +1,64 @@
+{% extends 'Public/PublicLayout.html.twig' %}
+
+{% block css %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block insertionLayout %}
+
+
+        {{ form_start(formUser, {attr:{"novalidate":"novalidate"}}) }}
+
+        {# Affichage du message de success	#}
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        <div>
+            {{ form_errors(formUser.username) }}
+            {{ form_label(formUser.username, "Votre Pseudo", {label_attr: {class: 'username'} } ) }}
+            {{ form_widget(formUser.username,
+            {
+                attr: {
+                placeholder: 'Nom d\'utilisateur',
+                class: "form-control",
+            }
+            })
+            }}
+        </div>
+
+        <div>
+            {{ form_errors(formUser.password) }}
+            {{ form_label(formUser.password, "Votre Mot de passe", {label_attr: {class: 'password'} } ) }}
+            {{ form_widget(formUser.password,
+            {
+                attr: {
+                placeholder: 'Utilisez un mot de passe complexe',
+                class: "form-control",
+
+            }
+            })
+            }}
+        </div>
+
+        <div>
+            {{ form_errors(formUser.email) }}
+            {{ form_label(formUser.email, "Email", {label_attr: {class: 'Email'} } ) }}
+            {{ form_widget(formUser.email,
+            {
+                attr: {
+                placeholder: 'exemple@gmail.com',
+                class: "form-control",
+            }
+            })
+            }}
+        </div>
+
+        <button class="btn btn-success ">Créer le compte</button>
+
+        {{ form_end(formUser) }}
+
+{% endblock %}
