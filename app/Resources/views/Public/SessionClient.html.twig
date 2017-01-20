@@ -25,12 +25,6 @@
         <div class="col-md-12">
             {{ form_start(formUser, {attr:{"novalidate":"novalidate"}}) }}
 
-            {# Affichage du message de success	#}
-            {% for flash_message in app.session.flashBag.get('success') %}
-                <div class="alert alert-success">
-                    {{ flash_message }}
-                </div>
-            {% endfor %}
 
             <div>
                 {{ form_errors(formUser.username) }}

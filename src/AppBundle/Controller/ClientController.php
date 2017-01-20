@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
-
 class ClientController extends Controller
 {
 
@@ -45,7 +44,7 @@ class ClientController extends Controller
 
         return $this->render('Public/SessionClient.html.twig',
             [
-                'formUser' => $formUser,
+                'formUser' => $formUser->createView(),
             ]);
     }
 }
