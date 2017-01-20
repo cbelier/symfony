@@ -48,8 +48,6 @@ class Categorie
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Veuillez renseigner une description")
-     *
      * @ORM\Column(name="description", type="string", length=255)
      *
      */

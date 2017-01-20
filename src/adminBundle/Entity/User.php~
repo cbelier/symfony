@@ -51,13 +51,36 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="birthday", type="datetime")
+     *
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string")
+     */
+    private $avatar;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="dateCreate", type="datetime")
+     *
+     */
+    private $dateCreate;
+
+    /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActive = false;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
     }
@@ -234,5 +257,77 @@ class User implements UserInterface, \Serializable
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     *
+     * @return User
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

@@ -27,16 +27,40 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="titleFR", type="string", length=255)
+     *
+     * @Assert\NotBlank(message ="product.titleFR")
+     *
      */
-    private $title;
+    private $titleFR;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="titleEN", type="string", length=255)
+     *
+     * @Assert\NotBlank(message ="product.titleFR")
      */
-    private $description;
+    private $titleEN;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionFR", type="text")
+     *
+     * @Assert\NotBlank(message ="product.descriptionFR")
+     */
+    private $descriptionFR;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionEN", type="text")
+     *
+     * @Assert\NotBlank(message ="product.descriptionFR")
+     *
+     */
+    private $descriptionEN;
 
     /**
      * @var float
@@ -77,8 +101,6 @@ class Product
      * @var string
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
-     *
-     * @Assert\NotBlank(message="Veuillez renseigner un commentaire")
      */
     private $comment;
 
@@ -115,54 +137,6 @@ class Product
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $produit
-     *
-     * @return Product
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Product
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**
@@ -387,5 +361,101 @@ class Product
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set titleFR
+     *
+     * @param string $titleFR
+     *
+     * @return Product
+     */
+    public function setTitleFR($titleFR)
+    {
+        $this->titleFR = $titleFR;
+
+        return $this;
+    }
+
+    /**
+     * Get titleFR
+     *
+     * @return string
+     */
+    public function getTitleFR()
+    {
+        return $this->titleFR;
+    }
+
+    /**
+     * Set titleEN
+     *
+     * @param string $titleEN
+     *
+     * @return Product
+     */
+    public function setTitleEN($titleEN)
+    {
+        $this->titleEN = $titleEN;
+
+        return $this;
+    }
+
+    /**
+     * Get titleEN
+     *
+     * @return string
+     */
+    public function getTitleEN()
+    {
+        return $this->titleEN;
+    }
+
+    /**
+     * Set descriptionFR
+     *
+     * @param string $descriptionFR
+     *
+     * @return Product
+     */
+    public function setDescriptionFR($descriptionFR)
+    {
+        $this->descriptionFR = $descriptionFR;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionFR
+     *
+     * @return string
+     */
+    public function getDescriptionFR()
+    {
+        return $this->descriptionFR;
+    }
+
+    /**
+     * Set descriptionEN
+     *
+     * @param string $descriptionEN
+     *
+     * @return Product
+     */
+    public function setDescriptionEN($descriptionEN)
+    {
+        $this->descriptionEN = $descriptionEN;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptionEN
+     *
+     * @return string
+     */
+    public function getDescriptionEN()
+    {
+        return $this->descriptionEN;
     }
 }

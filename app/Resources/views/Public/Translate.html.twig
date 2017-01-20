@@ -1,0 +1,38 @@
+{% extends 'Public/PublicLayout.html.twig' %}
+
+{% block css %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block insertionLayout %}
+
+    <div class="row carousel-holder">
+
+        <div class="col-md-12">
+            <h1>{{ 'text.titre1' | trans }}</h1>
+            <p>{{ 10000 | localizednumber }}</p>
+            <p>{{ '2000-01-01' | localizeddate }}</p>
+            <p>{{ 20.06 | localizedcurrency('EUR') }}</p>
+            <p>{{ 20.06 | localizedcurrency('USD') }}</p>
+            <p>{{ 'text.content' | trans }}</p>
+            <p>{{ 'text.placeholder' | trans({ '%name%': 'maVariable' }) }}</p>
+            <p>{{ 'admin.homepage' | trans({  }, 'admin') }}</p>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+
+
+
+
+    </div>
+
+
+
+
+
+{% endblock %}
+

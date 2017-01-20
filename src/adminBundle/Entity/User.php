@@ -11,6 +11,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /** ATTENTION Ne pas mettre userS avec un S car table reserver à mysql
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="adminBundle\Repository\UserRepository")
+ *
+ * @ORM\EntityListeners({"adminBundle\Listener\UserListener"})
  */
 class User implements UserInterface, \Serializable
 {
@@ -49,6 +51,29 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="birthday", type="datetime")
+     *
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string")
+     */
+    private $avatar;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="dateCreate", type="datetime")
+     *
+     */
+    private $dateCreate;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -258,5 +283,77 @@ class User implements UserInterface, \Serializable
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     *
+     * @return User
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set dateCreate
+     *
+     * @param \DateTime $dateCreate
+     *
+     * @return User
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreate
+     *
+     * @return \DateTime
+     */
+    public function getDateCreate()
+    {
+        return $this->dateCreate;
     }
 }

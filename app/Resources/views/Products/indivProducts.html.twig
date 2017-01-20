@@ -28,8 +28,10 @@
                           <thead>
                           <tr>
                               <th>ID</th>
-                              <th>Titre</th>
-                              <th>Description</th>
+                              <th>Titre FR</th>
+                              <th>Titre EN</th>
+                              <th>DescriptionFR</th>
+                              <th>DescriptionEN</th>
                               {#<th>Date</th>#}
                               <th>Prix</th>
                               <th>ghjg</th>
@@ -38,8 +40,10 @@
                           <tbody>
                               <tr>
                                   <td> {{ product.id }}</td>
-                                  <td> {{ product.title|default('pas de titre')|upper }}</td>
-                                  <td> {{ product.description }}</td>
+                                  <td> {{ product.titleFR|default('pas de titre')|upper }}</td>
+                                  <td> {{ product.titleEN|default('No title')|upper }}</td>
+                                  <td> {{ product.descriptionFR|default('Pas de description') }}</td>
+                                  <td> {{ product.descriptionEN|default('No description') }}</td>
                                   {#<td> {{ product.date_created|date("m/d/Y") }}</td>#}
                                   <td> {{ product.price }}</td>
                                   <td>

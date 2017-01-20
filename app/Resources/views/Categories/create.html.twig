@@ -6,7 +6,7 @@
     {% form_theme   formCategorie   _self %}
 
 
-    {{ form_start(formCategorie) }}
+    {{ form_start(formCategorie, {attr:{"novalidate":"novalidate"}}) }}
     <div>
         {# affiche les erreurs du champ firstname #}
         {{ form_errors(formCategorie.title) }}
@@ -75,4 +75,12 @@
 
     {{ form_end(formCategorie) }}
 
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+        <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('adminbundle_categorie_title');
+    </script>
 {% endblock %}

@@ -16,6 +16,7 @@
     <![endif]-->
 
     <link href="{{ asset("public/css/bootstrap.min.css") }}" rel="stylesheet">
+    <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 
     {% block css %}
     {% endblock %}
@@ -61,6 +62,17 @@
                         {% else %}
                             <a href="{{ path('security.login')}}">Se connecter</a>
                         {% endif %}
+                    </li>
+                    <li>
+                        {% set route = app.request.get('_route') %}
+                        {% set route_params = app.request.get('_route_params') %}
+
+                        <ul>
+                            {% for language in languages %}
+                                {% set route_merge = route_params | merge({'_locale': language}) %}
+                                <li><a href="{{ url(route, route_merge) }}"> {{ language }}</a></li>
+                            {% endfor %}
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -112,6 +124,18 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                minDate: "-100Y",
+                maxDate: '0D',
+                format: 'dd-mmy-yyyy'
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 {% block js %}
 

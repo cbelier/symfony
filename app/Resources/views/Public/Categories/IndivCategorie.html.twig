@@ -37,8 +37,8 @@
                         <div class="thumbnail">
                             <img class="img-responsive" src="{{ asset('upload/' ~ prod.image) }}" alt="">
                             <div class="caption">
-                                <h3>{{ prod.title|default('pas de titre')|upper }}</h3>
-                                <p>{{ prod.description|slice(0, 50) }}[...]</p>
+                                <h3>{{ prod.titleFR|default('pas de titre')|upper }}</h3>
+                                <p>{{ prod.descriptionFR|slice(0, 50) }}[...]</p>
                                 <p>
                                     <a href="{{ path('public_show_product', {id:prod.id}) }}" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
                                 </p>

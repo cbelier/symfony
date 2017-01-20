@@ -22,9 +22,9 @@
                                 <img src="{{ asset('upload/' ~ product.image) }}" alt="">
                                 <div class="caption">
                                     <h4 class="pull-right">{{ product.price|default('0')}} €</h4>
-                                    <h4><a href="#">{{ product.title|default('pas de titre')|upper }}</a>
+                                    <h4><a href="#">{{ product.titleFR|default('pas de titre')|upper }}</a>
                                     </h4>
-                                    <p>{{ product.description|slice(0, 50) }}[...]</p>
+                                    <p>{{ product.descriptionFR|slice(0, 50) }}[...]</p>
                                     <a href="{{ path('public_show_product', {id:product.id}) }}"><button class="btn btn-success ">Voir le produit</button></a>
                                 </div>
                                 <div class="ratings">

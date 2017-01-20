@@ -6,8 +6,9 @@ test:
 admin:
     resource: "@adminBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /{_locale}/
 
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+    prefix:   /{_locale}/

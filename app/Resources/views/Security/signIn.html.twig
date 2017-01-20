@@ -45,17 +45,31 @@
         </div>
 
         <div>
-            {{ form_errors(formUser.email) }}
-            {{ form_label(formUser.email, "Email", {label_attr: {class: 'Email'} } ) }}
-            {{ form_widget(formUser.email,
-            {
-                attr: {
-                placeholder: 'exemple@gmail.com',
-                class: "form-control",
-            }
-            })
-            }}
+                {{ form_errors(formUser.email) }}
+                {{ form_label(formUser.email, "Email", {label_attr: {class: 'Email'} } ) }}
+                {{ form_widget(formUser.email,
+                {
+                        attr: {
+                        placeholder: 'exemple@gmail.com',
+                        class: "form-control",
+                }
+                })
+                }}
         </div>
+
+        <div>
+            {{ form_errors(formUser.birthday) }}
+            {{ form_label(formUser.birthday, "Votre date de naissance" ) }}
+            {{ form_widget(formUser.birthday) }}
+        </div>
+
+        <div>
+            {{ form_errors(formUser.avatar) }}
+            {{ form_label(formUser.avatar, "Choisissez votre Avatar" ) }}
+            {{ form_widget(formUser.avatar, {'label': 'Choisir une image' }) }}
+        </div>
+
+
 
         <button class="btn btn-success ">Créer le compte</button>
 

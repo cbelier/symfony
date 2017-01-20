@@ -31,6 +31,7 @@ class CategorieListener
 
         $image = $entity->getImage();
 
+
         if (is_null($image)){
             $fileName = $this->defautImage;
         }

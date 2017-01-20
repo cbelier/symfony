@@ -86,7 +86,7 @@ class SecurityController extends Controller
                     $this->renderView(
                         'emails/formulaire-contact.html.twig',
                         [
-                            'data' => $data->getEmail(),
+                            'email' => $data->getEmail(),
                             'token' =>$token,
                         ])
                 )
@@ -109,19 +109,33 @@ class SecurityController extends Controller
 
     /**
      *
-     * @Route("email/{token}", name="security.verify")
+     * @Route("confirmation/{token}/{email}", name="security.verify")
      */
-    public function verifyAction($tokenEmail, Request $request)
+    public function verifyAction($token, $email, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $tokenBdd = $em->getRepository("adminBundle:User")->find($tokenEmail);
+        $user = $em->getRepository("adminBundle:User")->findOneBy([
+            'token' => $token,
+            'email' => $email,
+        ]);
+
+
         //Cette fonction permet de vérifier le token
-        if ($tokenEmail == $tokenBdd)
+
+
+        if ($user->getEmail() == $email && $user->getToken() == $token)
         {
-            $em->setIsActive(1);
-        }
-        else{
+            $user->setIsActive(1);
+            $em -> persist($user);//Doctrine est au courant des changements
+            $em -> flush();//On force
+            $this->addFlash('success', 'Votre email a été validé');
 
         }
+        else{
+            $this->addFlash('danger', 'Echec de vérification');
+
+        }
+        return $this->redirectToRoute('accueil');
+
     }
 }

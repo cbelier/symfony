@@ -5,14 +5,9 @@
     {{ form_start(formProduct, {attr:{"novalidate":"novalidate"}}) }}
 
     <div>
-        {# affiche les erreurs du champ firstname #}
-        {{ form_errors(formProduct.title) }}
-
-        {# affiche la balise label du champ firtsname #}
-        {{ form_label(formProduct.title, "Titre", {label_attr: {class: 'Titre'} } ) }}
-
-        {# affiche la balise input de type text du champ firtsname #}
-        {{ form_widget(formProduct.title,
+        {{ form_errors(formProduct.titleFR) }}
+        {{ form_label(formProduct.titleFR, "Titre", {label_attr: {class: 'Titre'} } ) }}
+        {{ form_widget(formProduct.titleFR,
         {
             attr: {
             placeholder: 'Titre',
@@ -21,14 +16,39 @@
         })
         }}
     </div>
+    <div>
+        {{ form_errors(formProduct.titleEN) }}
+        {{ form_label(formProduct.titleEN, "Title", {label_attr: {class: 'Title'} } ) }}
+        {{ form_widget(formProduct.titleEN,
+        {
+            attr: {
+            placeholder: 'Title',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
 
     <div>
-        {{ form_errors(formProduct.description) }}
-        {{ form_label(formProduct.description, "Votre description", {label_attr: {class: 'description'} } ) }}
-        {{ form_widget(formProduct.description,
+        {{ form_errors(formProduct.descriptionFR) }}
+        {{ form_label(formProduct.descriptionFR, "Votre description", {label_attr: {class: 'description'} } ) }}
+        {{ form_widget(formProduct.descriptionFR,
         {
             attr: {
             placeholder: 'Votre description',
+            class: "form-control",
+
+        }
+        })
+        }}
+    </div>
+    <div>
+        {{ form_errors(formProduct.descriptionEN) }}
+        {{ form_label(formProduct.descriptionEN, "Your description", {label_attr: {class: 'description'} } ) }}
+        {{ form_widget(formProduct.descriptionEN,
+        {
+            attr: {
+            placeholder: 'Your description',
             class: "form-control",
 
         }

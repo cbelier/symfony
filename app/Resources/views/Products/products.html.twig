@@ -19,8 +19,10 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Titre</th>
-                    <th>Description</th>
+                    <th>Titre FR</th>
+                    <th>Titre EN</th>
+                    <th>Description FR</th>
+                    <th>Description EN</th>
                     <th>Prix</th>
                     <th>Marque</th>
                     <th>Categories</th>
@@ -33,9 +35,13 @@
                 {% for product in products %}
                   <tr>
                         <td><input type="checkbox" name="allCheckBox"/></td>
-                        <td> {{ product.title|default('pas de titre')|upper }}</td>
-                        <td> {{ product.description }}</td>
-                        <!--<td> {#{{ product.date_created|date("m/d/Y") }}#}</td>-->
+                        <td> {{ product.titleFR|default('pas de titre')|upper }}</td>
+                        <td> {{ product.titleEN|default('No title')|upper }}</td>
+
+                      <td> {{ product.descriptionFR|default('Pas de description') }}</td>
+                      <td> {{ product.descriptionEN|default('No description') }}</td>
+
+                      <!--<td> {#{{ product.date_created|date("m/d/Y") }}#}</td>-->
                         <td> {{ product.price|default('0')}}</td>
                       <td> {{ product.brand.title }}</td>
                       <td>
@@ -70,7 +76,7 @@
                 <a href="{{ path('product_create') }}"><button class="btn btn-success ">Create a product</button></a>
 
                 <a href="{{ path('product_removeMany') }}"><button class="btn btn-danger deleteMany">Delete All</button></a>
-                {{ ma_fonction('back')|raw }}
+                {#{{ ma_fonction('back')|raw }}#}
             </div>
 
     {% endblock %}

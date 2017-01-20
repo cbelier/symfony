@@ -2,11 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use adminBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use adminBundle\Entity\Comment;
-use AppBundle\Form\PublicCommentForm;
 
 class ProductController extends Controller
 {
@@ -45,16 +45,18 @@ class ProductController extends Controller
      */
     public function showProductAction($id, Request $request){
 
+        $locale = $request->getLocale();
+
         //On appel doctrine
         $em = $this->getDoctrine()->getManager();
         //On récupère le produit celon sont id
-        $product = $em->getRepository("adminBundle:Product")->find($id);
+        $product = $em->getRepository("adminBundle:Product")->findProductByLocale($id, $locale);
 
         //On crée l'objet Comment
         $objComment = new Comment();
 
         //Création du formulaire
-        $formComment = $this->createForm(PublicCommentForm::class, $objComment);
+        $formComment = $this->createForm(CommentType::class, $objComment);
         $formComment->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
@@ -63,6 +65,7 @@ class ProductController extends Controller
 
             $em -> persist($objComment);//Doctrine est au courant des changements
             $em -> flush();//On force si il veut pas
+            
             // donc sauvegarde du commentaire :)
 
             $this->addFlash('success', 'Votre commentaire a bien été créer');

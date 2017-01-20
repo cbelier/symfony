@@ -3,9 +3,74 @@
 
 {% block start %}
 
-    {{ form_start(formCategorie) }}
+    {% form_theme   formCategorie   _self %}
 
-    {{ form_row(formCategorie) }}
+
+    {{ form_start(formCategorie, {attr:{"novalidate":"novalidate"}}) }}
+
+    <div>
+        {# affiche les erreurs du champ firstname #}
+        {{ form_errors(formCategorie.title) }}
+
+        {# affiche la balise label du champ firtsname #}
+        {{ form_label(formCategorie.title, "Titre", {label_attr: {class: 'Titre'} } ) }}
+
+        {# affiche la balise input de type text du champ firtsname #}
+        {{ form_widget(formCategorie.title,
+        {
+            attr: {
+            placeholder: 'Titre',
+            class: "form-control",
+            data: "titre"
+        }
+        })
+        }}
+    </div>
+
+    <div>
+        {{ form_errors(formCategorie.description) }}
+        {{ form_label(formCategorie.description, "Description", {label_attr: {class: 'Description'} } ) }}
+        {{ form_widget(formCategorie.description,
+        {
+            attr: {
+            placeholder: 'Description',
+            class: "form-control",
+            data: "description"
+
+        }
+        })
+        }}
+    </div>
+
+
+    {% if formCategorie.position is defined %}
+    <div>
+        {{ form_errors(formCategorie.position) }}
+        {{ form_label(formCategorie.position, "Position", {label_attr: {class: 'Position'} } ) }}
+        {{ form_widget(formCategorie.position,
+        {
+            attr: {
+            placeholder: 'Position',
+            class: "form-control",
+            data: "position"
+        }
+        })
+        }}
+    </div>
+    {% endif %}
+
+    <div>
+        {{ form_errors(formCategorie.image) }}
+        {{ form_label(formCategorie.image, "Image", {label_attr: {class: 'Image'} } ) }}
+        {{ form_widget(formCategorie.image,
+        {
+            attr: {
+            placeholder: 'Image',
+            class: "form-control",
+        }
+        })
+        }}
+    </div>
 
     <button>Modifier</button>
 

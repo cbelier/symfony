@@ -10,10 +10,11 @@ parameters:
     locale: en
     upload_dir: upload/
     default_img: defaut.jpg
+    languages: [fr, en] #On déclare un tableau de langues
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -43,6 +44,8 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
     - 'Form/fields.html.twig'
+    globals: #Ceci permet de créer des variables globales, utile pour les clé API ou les langages
+        languages: '%languages%'
 
 # Doctrine Configuration
 doctrine:

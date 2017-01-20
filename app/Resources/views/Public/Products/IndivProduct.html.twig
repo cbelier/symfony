@@ -18,9 +18,9 @@
                 <img class="img-responsive" src="{{ asset('upload/' ~ product.image) }}" alt="">
                 <div class="caption-full">
                     <h4 class="pull-right">{{ product.price }} €</h4>
-                    <h4><a href="#">Product Name</a>
+                    <h4><a href="#">{{ product.title|default('Pas de titre') }}</a>
                     </h4>
-                    <p>{{ product.description }}</p>
+                    <p>{{ product.description|default('No description') }}</p>
                     </div>
                 <div class="ratings">
                     <p class="pull-right">3 reviews</p>
@@ -39,18 +39,7 @@
 
 
 
-                {% for comment in comments %}
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% for i in 1..comment.note %}
-                                <span class="glyphicon glyphicon-star"></span>
-                            {% endfor %}
-                            {{ comment.author }}
-                            <span class="pull-right">{{ comment.dateCreate|date("d/m/Y") }}</span>
-                            <p>{{ comment.comment }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
+
 
                 <hr>
 
@@ -78,11 +67,11 @@
 
                 <div>
                     {{ form_errors(formComment.comment) }}
-                    {{ form_label(formComment.comment, "comment", {label_attr: {class: 'description'} } ) }}
+                    {{ form_label(formComment.comment, "comment", {label_attr: {class: 'comment'} } ) }}
                     {{ form_widget(formComment.comment,
                     {
                         attr: {
-                        placeholder: 'Votre description',
+                        placeholder: 'Votre comment',
                         class: "form-control",
 
                     }
