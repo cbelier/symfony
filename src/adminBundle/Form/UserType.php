@@ -17,15 +17,7 @@ class UserType extends AbstractType
     {
         $builder->add('username')
             ->add('password')
-            ->add('birthday', DateType::class, array(
-                'html5' => false,
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-                'attr' => [
-                    'class' => 'js-datepicker form-control',
-                    'placeholder' =>  'date de naissance '
-                ],
-            ))
+
             ->add('email')
             ->add('avatar', FileType::class, [
                 'data_class' => null,

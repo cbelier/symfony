@@ -71,6 +71,8 @@ class Comment
      */
     private $product;
 
+
+
     /**
      * Get id
      *
@@ -200,47 +202,6 @@ class Comment
     {
         return $this->dateCreate;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add product
-     *
-     * @param \adminBundle\Entity\Product $product
-     *
-     * @return Comment
-     */
-    public function addProduct(\adminBundle\Entity\Product $product)
-    {
-        $this->product[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \adminBundle\Entity\Product $product
-     */
-    public function removeProduct(\adminBundle\Entity\Product $product)
-    {
-        $this->product->removeElement($product);
-    }
-
-    /**
-     * Get product
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
 
     /**
      * Set product
@@ -254,5 +215,15 @@ class Comment
         $this->product = $product;
 
         return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \adminBundle\Entity\Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

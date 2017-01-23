@@ -129,238 +129,24 @@ class Product
     private $image;
 
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
-    /**
-     * Set price
-     *
-     * @param float $price
-     *
-     * @return Product
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set quantity
-     *
-     * @param integer $quantity
-     *
-     * @return Product
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
-     *
-     * @return int
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-
-
-
-    /**
-     * Set brand
-     *
-     * @param \adminBundle\Entity\Brand $brand
-     *
-     * @return Product
-     */
-    public function setBrand(\adminBundle\Entity\Brand $brand)
-    {
-        $this->brand = $brand;
-
-        return $this;
-    }
-
-    /**
-     * Get brand
-     *
-     * @return \adminBundle\Entity\Brand
-     */
-    public function getBrand()
-    {
-        return $this->brand;
-    }
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add category
+     * Get id
      *
-     * @param \adminBundle\Entity\Categorie $category
-     *
-     * @return Product
+     * @return integer
      */
-    public function addCategory(\adminBundle\Entity\Categorie $category)
+    public function getId()
     {
-        $this->categories[] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Remove category
-     *
-     * @param \adminBundle\Entity\Categorie $category
-     */
-    public function removeCategory(\adminBundle\Entity\Categorie $category)
-    {
-        $this->categories->removeElement($category);
-    }
-
-    /**
-     * Get categories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Set dateUpdate
-     *
-     * @param \DateTime $dateUpdate
-     *
-     * @return Product
-     */
-    public function setDateUpdate($dateUpdate)
-    {
-        $this->dateUpdate = $dateUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get dateUpdate
-     *
-     * @return \DateTime
-     */
-    public function getDateUpdate()
-    {
-        return $this->dateUpdate;
-    }
-
-    /**
-     * Set dateCreate
-     *
-     * @param \DateTime $dateCreate
-     *
-     * @return Product
-     */
-    public function setDateCreate($dateCreate)
-    {
-        $this->dateCreate = $dateCreate;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreate
-     *
-     * @return \DateTime
-     */
-    public function getDateCreate()
-    {
-        return $this->dateCreate;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Product
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-
-
-    /**
-     * Add comment
-     *
-     * @param \adminBundle\Entity\comment $comment
-     *
-     * @return Product
-     */
-    public function addComment(\adminBundle\Entity\comment $comment)
-    {
-        $this->comment[] = $comment;
-
-        return $this;
-    }
-
-    /**
-     * Remove comment
-     *
-     * @param \adminBundle\Entity\comment $comment
-     */
-    public function removeComment(\adminBundle\Entity\comment $comment)
-    {
-        $this->comment->removeElement($comment);
-    }
-
-    /**
-     * Get comment
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getComment()
-    {
-        return $this->comment;
+        return $this->id;
     }
 
     /**
@@ -457,5 +243,217 @@ class Product
     public function getDescriptionEN()
     {
         return $this->descriptionEN;
+    }
+
+    /**
+     * Set price
+     *
+     * @param float $price
+     *
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return Product
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Set dateUpdate
+     *
+     * @param \DateTime $dateUpdate
+     *
+     * @return Product
+     */
+    public function setDateUpdate($dateUpdate)
+    {
+        $this->dateUpdate = $dateUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdate
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdate()
+    {
+        return $this->dateUpdate;
+    }
+
+    /**
+     * Set dateCreate
+     *
+     * @param \DateTime $dateCreate
+     *
+     * @return Product
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreate
+     *
+     * @return \DateTime
+     */
+    public function getDateCreate()
+    {
+        return $this->dateCreate;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Product
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param \adminBundle\Entity\Brand $brand
+     *
+     * @return Product
+     */
+    public function setBrand(\adminBundle\Entity\Brand $brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \adminBundle\Entity\Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \adminBundle\Entity\Categorie $category
+     *
+     * @return Product
+     */
+    public function addCategory(\adminBundle\Entity\Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \adminBundle\Entity\Categorie $category
+     */
+    public function removeCategory(\adminBundle\Entity\Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \adminBundle\Entity\Comment $comment
+     *
+     * @return Product
+     */
+    public function addComment(\adminBundle\Entity\Comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \adminBundle\Entity\Comment $comment
+     */
+    public function removeComment(\adminBundle\Entity\Comment $comment)
+    {
+        $this->comment->removeElement($comment);
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

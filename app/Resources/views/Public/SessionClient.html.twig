@@ -17,9 +17,13 @@
 
 
     <div class="row carousel-holder">
-
         <div class="col-md-12">
-            <h1>Bienvenue {{ app.user.username }} !</h1>
+            <div class="col-md-4">
+                <img class="img-responsive img-thumbnail" src="{{ asset('upload/' ~ userConnected.avatar) }}" alt="avatar">
+            </div>
+            <div class="col-md-8">
+                <h1>Bienvenue {{ app.user.username }} !</h1>
+            </div>
         </div>
 
         <div class="col-md-12">
@@ -47,7 +51,6 @@
                     attr: {
                     placeholder: 'Utilisez un mot de passe complexe',
                     class: "form-control",
-
                 }
                 })
                 }}

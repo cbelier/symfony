@@ -34,12 +34,15 @@
                     </p>
                 </div>
             </div>
+            <div>
 
-            <div class="well">
-
-
-
-
+            {% for comment in comments %}
+                <div class="well">
+                    <h4>{{ comment.title }} €</h4>
+                    <h5>{{ comment.author }} €</h5>
+                    <p>{{ comment.comment|default('No description') }}</p>
+                    </div>
+            {% endfor %}
 
                 <hr>
 
@@ -105,16 +108,14 @@
                     }}
                 </div>
 
-
-                <button class="btn btn-success">Ajouter</button>
-
+                <div class="text-right">
+                    <button class="btn btn-success">Ajouter un commentaire</button>
+                </div>
                 {{ form_end(formComment) }}
 
 
 
-                <div class="text-right">
-                    <a class="btn btn-success" href="{{ path('public_show_product', {id:product.id}) }}">Ajouter un commentaire</a>
-                </div>
+
 
             </div>
 

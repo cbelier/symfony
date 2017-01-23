@@ -18,6 +18,17 @@ services:
         tags:
             - { name: kernel.event_subscriber}
 
+    admin.subscriber.signup.form:
+            class: adminBundle\Subscriber\SignUpFormSubscriber
+            tags:
+                - { name: kernel.event_subscriber}
+
+    admin.subscriber.kernel.events:
+                class: adminBundle\Subscriber\KernelEventsSubscriber
+                arguments: [ '@twig' ]
+                tags:
+                    - { name: kernel.event_subscriber}
+
     admin.services.utils.string:
         class: adminBundle\Services\Utils\StringService
 

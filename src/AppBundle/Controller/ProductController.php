@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use adminBundle\Entity\Comment;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ProductController extends Controller
 {
@@ -54,14 +55,20 @@ class ProductController extends Controller
 
         //On crée l'objet Comment
         $objComment = new Comment();
-
         //Création du formulaire
         $formComment = $this->createForm(CommentType::class, $objComment);
         $formComment->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
 
-//            $product->addComment($objComment);
+            $product = $em->getRepository("adminBundle:Product")->find($id);
+
+            $objComment->setDateCreate(new \DateTime());
+            $objComment->setProduct($product);
+
+            $product->addComment($objComment);
+           // dump($product, $objComment); exit;
+
 
             $em -> persist($objComment);//Doctrine est au courant des changements
             $em -> flush();//On force si il veut pas

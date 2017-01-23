@@ -26,4 +26,18 @@ class PublicController extends Controller
                 'products' => $products
             ]);
     }
+
+    /**
+     * @Route("public/accueil/cookiesAgree", name="cookiesAgree")
+     */
+    public function cookiesAgreeAction(Request $request)
+    {
+        $disabled = $request->get('disclaimer');
+
+        $session = $request->getSession();
+
+        $session->set('disclaimer', $disabled);
+    }
+
+
 }

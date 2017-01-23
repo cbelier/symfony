@@ -1,0 +1,38 @@
+#cookie-statement.display {
+    display: block;
+}
+#cookie-statement {
+    background-color: #5a5a5a;
+    border: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    color: #fff;
+    display: none;
+    font-weight: bold;
+    margin-top: 50px;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    text-align: center;
+}
+.maia-stage {
+    overflow: hidden;
+}
+
+.maia-notification {
+     background: #fffbe4;
+     border-color: #f8f6e6;
+}
+
+.maia-aside, .maia-notification, .maia-promo {
+    border: 1px solid;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 10px;
+    position: relative;
+    top: -1px;
+}

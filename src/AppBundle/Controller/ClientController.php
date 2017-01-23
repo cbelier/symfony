@@ -45,6 +45,7 @@ class ClientController extends Controller
         return $this->render('Public/SessionClient.html.twig',
             [
                 'formUser' => $formUser->createView(),
+                'userConnected' => $user
             ]);
     }
 }

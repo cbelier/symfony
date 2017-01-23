@@ -16,6 +16,8 @@
     <![endif]-->
 
     <link href="{{ asset("public/css/bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("public/css/style.css") }}" rel="stylesheet">
+
     <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 
     {% block css %}
@@ -103,6 +105,8 @@
     </div>
     <!-- /.container -->
 
+    <div class="cookies"></div>
+
     <div class="container">
 
         <hr>
@@ -127,11 +131,24 @@
 
     <script>
         $(document).ready(function() {
+            $('#closed').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    method: 'POST',
+                    url: 'http://localhost/symfony/web/app_dev.php/fr/public/accueil/cookiesAgree',
+                    data: 'disclaimer=1',
+                    success: onSuccess
+                });
+            });
             $('.js-datepicker').datepicker({
                 minDate: "-100Y",
                 maxDate: '0D',
                 format: 'dd-mmy-yyyy'
             });
+
+            function onSuccess(data) {
+                console.log("Success" + data);
+            }
         });
     </script>
 
