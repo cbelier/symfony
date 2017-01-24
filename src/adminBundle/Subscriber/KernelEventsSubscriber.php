@@ -12,6 +12,7 @@ namespace adminBundle\Subscriber;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -19,10 +20,12 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class KernelEventsSubscriber implements EventSubscriberInterface
 {
     private $twig;
+    private $session;
 
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(\Twig_Environment $twig, Session $session)
     {
         $this->twig = $twig;
+        $this->session = $session;
     }
 
     public static function getSubscribedEvents()
@@ -39,17 +42,20 @@ class KernelEventsSubscriber implements EventSubscriberInterface
     public function addCookiesBlock(FilterResponseEvent $event){
         $content = $event->getResponse()->getContent();
 
-        $content = str_replace('<div class="cookies"></div>', '
-                <div class="cookies">
-                <div class="maia-notification maia-stage display" id="cookie-statement">
-                  <div class="text">
-                    <span>Nous diffusons des cookies afin d\'analyser le trafic sur ce site. Les informations
-                    concernant l\'utilisation que vous faites de notre site nous sont transmises dans cette
-                    optique.</span><br /><a href="http://www.google.com/intl/fr/policies/technologies/cookies/" class="btn btn-default" ">En savoir plus</a> <button class="btn btn-warning" id="closed">OK</button>
-                  </div>
-                </div>
-                 </div>
-            ', $content);
+        if(!$this->session->has('disclaimer')) {
+
+            $content = str_replace('<div class="cookies"></div>', '
+                    <div class="cookies">
+                    <div class="maia-notification maia-stage display" id="cookie-statement">
+                      <div class="text">
+                        <span>Nous diffusons des cookies afin d\'analyser le trafic sur ce site. Les informations
+                        concernant l\'utilisation que vous faites de notre site nous sont transmises dans cette
+                        optique.</span><br /><a href="http://www.google.com/intl/fr/policies/technologies/cookies/" class="btn btn-default" ">En savoir plus</a> <button class="btn btn-warning" id="closed">OK</button>
+                      </div>
+                    </div>
+                     </div>
+                ', $content);
+        }
 
         $response = new Response($content);
         $event->setResponse($response);

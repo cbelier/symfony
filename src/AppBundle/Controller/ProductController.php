@@ -100,6 +100,9 @@ class ProductController extends Controller
             throw $this->createNotFoundException("Le produit n'hexiste pas !");
         }
 
+
+
+
         return $this->render('Public/Products/IndivProduct.html.twig',
             [
                 'product' => $product,

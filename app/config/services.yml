@@ -25,7 +25,7 @@ services:
 
     admin.subscriber.kernel.events:
                 class: adminBundle\Subscriber\KernelEventsSubscriber
-                arguments: [ '@twig' ]
+                arguments: [ '@twig', '@session' ]
                 tags:
                     - { name: kernel.event_subscriber}
 

@@ -19,7 +19,6 @@ class PublicController extends Controller
 
         $produitLesPlusEnStock = $em->getRepository('adminBundle:Product')->findbystock();
 
-
         return $this->render('Public/Accueil.html.twig',
             [
                 'produitLesPlusEnStock' => $produitLesPlusEnStock,

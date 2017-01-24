@@ -18,7 +18,9 @@
     <link href="{{ asset("public/css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ asset("public/css/style.css") }}" rel="stylesheet">
 
+
     <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    {#<script src="https://use.fontawesome.com/d7ac5f3cfb.js"></script>#}
 
     {% block css %}
     {% endblock %}
@@ -49,9 +51,6 @@
                         <a href="{{ path('public_categories')}}">Catégories</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
                         <a href="#">Contact</a>
                     </li>
                     <li>
@@ -75,6 +74,10 @@
                                 <li><a href="{{ url(route, route_merge) }}"> {{ language }}</a></li>
                             {% endfor %}
                         </ul>
+                    </li>
+                    <li>
+                        <a href="{{ path('panier')}}"><i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                            Mon Panier</a>
                     </li>
                 </ul>
             </div>
@@ -132,6 +135,7 @@
     <script>
         $(document).ready(function() {
             $('#closed').on('click', function (e) {
+                $('.cookies').fadeOut("slow");
                 e.preventDefault();
                 $.ajax({
                     method: 'POST',
@@ -140,6 +144,17 @@
                     success: onSuccess
                 });
             });
+
+            $('.ajouter').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    method: 'POST',
+                    url: 'http://localhost/symfony/web/app_dev.php/fr/ajouterProduitPanier',
+                    data: 'id=' + $(this).data('id') + '&qte='+$('.quantity').val(),
+                    success: panierUpdate
+                });
+            });
+
             $('.js-datepicker').datepicker({
                 minDate: "-100Y",
                 maxDate: '0D',
@@ -147,7 +162,11 @@
             });
 
             function onSuccess(data) {
-                console.log("Success" + data);
+                console.log("Success" +data);
+            }
+            function panierUpdate() {
+                console.log("Panier mit à jour");
+                $('.flashbagReplace').append('{% for flash_message in app.session.flashBag.get('success') %}<div class="alert alert-success">{{ flash_message }}</div>{% endfor %}');
             }
         });
     </script>
@@ -160,3 +179,7 @@
 
 </body>
 </html>
+
+{#{% for flash_message in app.session.flashBag.get(&quot;success&quot;) %}#}
+{#<div class=&quot;alert alert-success&quot;>{{ flash_message }}</div>#}
+{#{% endfor %}#}

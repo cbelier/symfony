@@ -20,6 +20,8 @@
                     <h4 class="pull-right">{{ product.price }} €</h4>
                     <h4><a href="#">{{ product.title|default('Pas de titre') }}</a>
                     </h4>
+                    <input type="number" placeholder="quantity"  value="1" min="1" max="99" class="pull-right quantity">
+                    <button class="ajouter pull-right btn btn-success" data-id="{{product.id}}">Ajouter au Panier</button>
                     <p>{{ product.description|default('No description') }}</p>
                     </div>
                 <div class="ratings">
@@ -34,7 +36,14 @@
                     </p>
                 </div>
             </div>
+
+            <div class="flashbagReplace">
+            </div>
+            
             <div>
+
+
+
 
             {% for comment in comments %}
                 <div class="well">
@@ -49,11 +58,8 @@
                 {{ form_start(formComment, {attr:{"novalidate":"novalidate"}}) }}
 
                 {# Affichage du message de success	#}
-                {% for flash_message in app.session.flashBag.get('success') %}
-                    <div class="alert alert-success">
-                        {{ flash_message }}
-                    </div>
-                {% endfor %}
+
+
 
                 <div>
                     {{ form_errors(formComment.title) }}
