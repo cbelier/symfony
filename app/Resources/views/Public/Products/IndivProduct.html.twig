@@ -47,8 +47,8 @@
 
             {% for comment in comments %}
                 <div class="well">
-                    <h4>{{ comment.title }} €</h4>
-                    <h5>{{ comment.author }} €</h5>
+                    <h4>{{ comment.title }}</h4>
+                    <h5>{{ comment.author }}</h5>
                     <p>{{ comment.comment|default('No description') }}</p>
                     </div>
             {% endfor %}

@@ -16,29 +16,49 @@
 
     <h2>Vos articles:</h2>
 
-    {% for product in products %}
-        <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
-                <img src="{{ asset('upload/' ~ product.image) }}" alt="">
-                <div class="caption">
-                    <h4 class="pull-right">{{ product.price|default('0')}} €</h4>
-                    <h4><a href="#">{{ product.titleFR|default('pas de titre')|upper }}</a>
-                    </h4>
-                    <p>{{ product.descriptionFR|slice(0, 50) }}[...]</p>
-                    <a href="{{ path('public_show_product', {id:product.id}) }}"><button class="btn btn-success ">Voir le produit</button></a>
-                </div>
-                <div class="ratings">
-                    <p class="pull-right">15 vues</p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                    </p>
-                </div>
-            </div>
+        <div class="col-sm-8 col-lg-8 col-md-8">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Titre</th>
+                    <th>Quantité</th>
+                    <th>Prix Unitaire</th>
+                    <th>Prix Qte</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td><img src="{{ asset('upload/' ~ product.image) }}" width="200px" alt=""></td>
+                        <td><a href="{{ path('public_show_product', {id:product.id}) }}">{{ product.titleFR|default('pas de titre')|upper }}</a></td>
+                        <td><input type="number" class="target" min="0" data-id="{{product.id}}"  value="{{ app.session.get('panier')[product.id] }}"></td>
+                        <td> {{ product.price}}</td>
+                        <td class="PrixQte"> {{ product.price*app.session.get('panier')[product.id] }}</td>
+                        <td>
+                            <a href="{{ path('product_remove', {id:product.id}) }}"><button class="btn btn-danger deleteFromPanier" data-id="{{product.id}}">Supprimer</button></a></td>
+                    </tr>
+
+
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+                    <td></td>
+                    <td>TOTAL</td>
+                <td class="Total">
+                    {% set total = 0  %}
+                    {% for product in products %}
+                         {% set total = total + product.price*app.session.get('panier')[product.id] %}
+                    {% endfor %}
+                    {{ total }}
+                </td>
+                <td></td>
+                <td><a href="#"><button class="btn btn-success ">Passer la commande</button></a></td>
+                </tfoot>
+            </table>
         </div>
-    {% endfor %}
 
 {% endblock %}

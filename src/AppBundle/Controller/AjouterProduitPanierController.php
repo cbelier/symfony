@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use adminBundle\Entity\Product;
+use adminBundle\Services\Utils\PanierUpdateService;
+
 
 
 
@@ -69,8 +71,38 @@ class AjouterProduitPanierController extends Controller
         $session->set('nbArticle', $nbArticle);
         //dump($nbArticle);
 
-        return new JsonResponse(['response'=>'response']);
+        return new JsonResponse(['nbArticle'=>$nbArticle]);
 
+    }
+
+    /**
+     * @Route("updateQuantityProduitPanier", name="updateQuantityProduitPanier")
+     */
+    public function updateQteAction(Request $request)
+    {
+        $id = $request->get('id');
+
+        $session = $request->getSession();
+
+        $panier = $session->get('panier');
+
+
+        if (array_key_exists($id, $panier)) {
+            $panier[$id] = $request->get('qte');
+        }
+
+        else
+        {
+            if ($request->get('qte') != null){
+                $panier[$id] = $request->get('qte');
+            }
+        }
+
+        $session->set('panier',$panier);
+
+        $nbArticle = $session->panierUpdateUntilService->modeleUpdate($panier, $session);
+
+        return new JsonResponse(['nbArticle'=>$nbArticle]);
 
     }
 
@@ -91,4 +123,46 @@ class AjouterProduitPanierController extends Controller
         return $this->render('Public/Panier.html.twig', array('products' => $produits,
             'panier' => $session->get('panier')));
     }
+
+    /**
+     * @Route("public/accueil/panierUpdate", name="panierUpdate")
+     */
+    public function updateAction(Request $request)
+    {
+        $session = $request->getSession();
+        if (!$session->has('panier')) {
+            $session->set('panier', array());
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $produits = $em->getRepository('adminBundle:Product')->findArray(array_keys($session->get('panier')));
+
+        return $this->render('Public/Panier.html.twig', array('products' => $produits,
+            'panier' => $session->get('panier')));
+    }
+
+    /**
+     * @Route("public/accueil/panierDeletebyId", name="panierDeletebyId")
+     */
+    public function supprimerAction(Request $request)
+    {
+        $session = $request->getSession();
+        $panier = $session->get('panier');
+
+        $id = $request->get('id');
+
+        if (array_key_exists($id, $panier))
+        {
+            unset($panier[$id]);
+            $session->set('panier',$panier);
+        }
+
+        $nbArticle = $this->panierUpdateUntilService->modeleUpdate($panier, $session);
+
+
+        return new JsonResponse(['nbArticle'=>$nbArticle]);
+    }
+
+
 }
