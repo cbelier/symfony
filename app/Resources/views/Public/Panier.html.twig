@@ -35,26 +35,25 @@
                         <td><img src="{{ asset('upload/' ~ product.image) }}" width="200px" alt=""></td>
                         <td><a href="{{ path('public_show_product', {id:product.id}) }}">{{ product.titleFR|default('pas de titre')|upper }}</a></td>
                         <td><input type="number" class="target" min="0" data-id="{{product.id}}"  value="{{ app.session.get('panier')[product.id] }}"></td>
-                        <td> {{ product.price}}</td>
-                        <td class="PrixQte"> {{ product.price*app.session.get('panier')[product.id] }}</td>
+                        <td class="price" data-price="{{ product.price}}"> {{ product.price}}</td>
+                        <td class="PrixQte{{ app.session.get('panier')[product.id] }}" data-id1="{{ app.session.get('panier')[product.id] }}">{{ product.price*app.session.get('panier')[product.id] }}</td>
                         <td>
-                            <a href="{{ path('product_remove', {id:product.id}) }}"><button class="btn btn-danger deleteFromPanier" data-id="{{product.id}}">Supprimer</button></a></td>
+                            <a href="{{ path('product_remove', {id:product.id}) }}"><button class="btn btn-danger deleteFromPanier" data-id="{{product.id}}">Supprimer</button></a>
+                        </td>
                     </tr>
 
 
+                {% endfor %}
+                {% set total = 0  %}
+                {% for product in products %}
+                    {% set total = total + product.price*app.session.get('panier')[product.id] %}
                 {% endfor %}
 
                 </tbody>
                 <tfoot>
                     <td></td>
                     <td>TOTAL</td>
-                <td class="Total">
-                    {% set total = 0  %}
-                    {% for product in products %}
-                         {% set total = total + product.price*app.session.get('panier')[product.id] %}
-                    {% endfor %}
-                    {{ total }}
-                </td>
+                <td class="Total" data-total="{{ total }}">{{ total }}</td>
                 <td></td>
                 <td><a href="#"><button class="btn btn-success ">Passer la commande</button></a></td>
                 </tfoot>

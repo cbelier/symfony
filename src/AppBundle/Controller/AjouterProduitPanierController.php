@@ -21,6 +21,7 @@ use adminBundle\Services\Utils\PanierUpdateService;
 
 class AjouterProduitPanierController extends Controller
 {
+
     /**
      * @Route("ajouterProduitPanier", name="ajouter_Produit_Panier")
      */
@@ -100,10 +101,10 @@ class AjouterProduitPanierController extends Controller
 
         $session->set('panier',$panier);
 
-        $nbArticle = $session->panierUpdateUntilService->modeleUpdate($panier, $session);
+        $updateservice = $this->get('admin.services.utils.panierUpdate');
+        $nbArticle = $updateservice->modeleUpdate($panier, $session);
 
         return new JsonResponse(['nbArticle'=>$nbArticle]);
-
     }
 
     /**
@@ -149,6 +150,7 @@ class AjouterProduitPanierController extends Controller
     {
         $session = $request->getSession();
         $panier = $session->get('panier');
+        $prixQTE = $session->get('prixArticlesSelonQte');
 
         $id = $request->get('id');
 
@@ -158,7 +160,7 @@ class AjouterProduitPanierController extends Controller
             $session->set('panier',$panier);
         }
 
-        $nbArticle = $this->panierUpdateUntilService->modeleUpdate($panier, $session);
+        $nbArticle = $this->panierUpdateUntilService->modeleUpdate($panier, $prixQTE, $session);
 
 
         return new JsonResponse(['nbArticle'=>$nbArticle]);

@@ -163,8 +163,17 @@
                     url: 'http://localhost/symfony/web/app_dev.php/fr/updateQuantityProduitPanier',
                     data: 'id=' + $(this).data('id') + '&qte='+$('[data-id="' + $(this).data('id') + '"]').val(),
                     dataType: 'json',
-                    success: updatePanier
+                    success: panierUpdate
                 });
+                var v1 = $('.target').val();
+                var v2 = $('.price').data('price');
+
+                var id = $(".PrixQte").data('id1');
+
+                $(".PrixQte"+data('id1')).html('<td class="PrixQte"'+data('id1')+'>'+  v1*v2+'</td>');
+
+                $(".Total").html('<td class="Total" >'+ $('.Total').data('total')+'</td>');
+
             });
 
             $('.deleteFromPanier').on('click', function (e) {
@@ -179,7 +188,7 @@
                         url: 'http://localhost/symfony/web/app_dev.php/fr/public/accueil/panierDeletebyId',
                         data: 'id=' + $(this).data('id'),
                         dataType: 'json',
-                        success: updatePanier
+                        success: panierUpdate
                     }).done(function(){
                         elementA.closest('tr').fadeOut(700, function(){
                             $(this).remove();
@@ -200,7 +209,7 @@
             $('.js-datepicker').datepicker({
                 minDate: "-100Y",
                 maxDate: '0D',
-                format: 'dd-mmy-yyyy'
+                format: 'dd-mm-yyyy'
             });
 
             function onSuccess(data) {
@@ -209,10 +218,6 @@
 
             function panierUpdate(data) {
                 $('.basket').html('<a href="{{path('panier')}}" class="basket"><i class="fa fa-shopping-basket" aria-hidden="true"></i>Panier: ' + data.nbArticle + ' Articles </a>');
-            }
-
-            function updatePanier(data) {
-                $('.basket').html('<href="{{path('panier')}}" class="basket"><i class="fa fa-shopping-basket" aria-hidden=""></i>Paniera : ' + data.nbArticle + ' Articles </a>');
             }
 
         });</script>

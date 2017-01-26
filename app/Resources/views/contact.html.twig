@@ -11,152 +11,165 @@
 
     <p>Mon voisin est un geek :D</p>
 
-    <h3> 1- Afficher le titre et la description de tous les produits</h3>
-    <ul>
-    	{% for product in products %}
-    		{% if product.title=="" %}
-    			<li>{{ "Sans titre"|upper }}: 
-    		{% else %}
+    <table class="table table-striped">
+        <tr>
+            <th>Ip</th>
+            <th>Date</th>
+        </tr>
+        {% for line in file %}
+            {% set data = line | split(';') %}
+            <tr>
+                <td>{{ data[0] }}</td>
+                <td>{{ data[1] }}</td>
+            </tr>
+            {% endfor %}
+    </table>
+    {#<h3> 1- Afficher le titre et la description de tous les produits</h3>#}
+    {#<ul>#}
+    	{#{% for product in products %}#}
+    		{#{% if product.title=="" %}#}
+    			{#<li>{{ "Sans titre"|upper }}: #}
+    		{#{% else %}#}
 
-        	<li>{{ product.title|upper }}:
-        	{% endif %}
-			 {{ product.description }}</li>
-    	{% endfor %}
-	</ul>
+        	{#<li>{{ product.title|upper }}:#}
+        	{#{% endif %}#}
+			 {#{{ product.description }}</li>#}
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3> 2- Afficher uniquement pour le premier produit la phrase suivante en plus : "Ceci est le premier produit" (ne pas utiliser id pour faire son test)</h3>
-	<ul>
-    	{% for product in products %}
-	    	{% if product.title=="" %}
-	    		<li>{{ "Sans titre"|upper }}: 
-	    	{% else %}
+	{#<h3> 2- Afficher uniquement pour le premier produit la phrase suivante en plus : "Ceci est le premier produit" (ne pas utiliser id pour faire son test)</h3>#}
+	{#<ul>#}
+    	{#{% for product in products %}#}
+	    	{#{% if product.title=="" %}#}
+	    		{#<li>{{ "Sans titre"|upper }}: #}
+	    	{#{% else %}#}
 
-	        <li>{{ product.title|upper }}:
-	        {% endif %}
-		{{ product.description }}</li>
-		{% if loop.first %} (Ceci est le premier produit){% endif %}
+	        {#<li>{{ product.title|upper }}:#}
+	        {#{% endif %}#}
+		{#{{ product.description }}</li>#}
+		{#{% if loop.first %} (Ceci est le premier produit){% endif %}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3> 3- Afficher le nombre de produits en utilisant un filter</h3>
-	<p>Il y a {{ products|length }} produits</p>
+	{#<h3> 3- Afficher le nombre de produits en utilisant un filter</h3>#}
+	{#<p>Il y a {{ products|length }} produits</p>#}
 
-	<h3> 4- Afficher pour le produit ayant l'id 4 un titre par défaut</h3>
-	<ul>
-    	{% for product in products %}
-	    	<li>{{product.title|upper|default('Titre par default')}}:
-		{{ product.description }}</li>
-		{% if loop.first %} (Ceci est le premier produit){% endif %}
+	{#<h3> 4- Afficher pour le produit ayant l'id 4 un titre par défaut</h3>#}
+	{#<ul>#}
+    	{#{% for product in products %}#}
+	    	{#<li>{{product.title|upper|default('Titre par default')}}:#}
+		{#{{ product.description }}</li>#}
+		{#{% if loop.first %} (Ceci est le premier produit){% endif %}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3>  5- Parcourez de nouveau les produits mais dans l'ordre inverse</h3>
-	<ul>
-    	{% for product in products|reverse %}
-	    	{% if product.title=="" %}
-	    		<li>{{ "Titre par default"|upper }}: 
-	    	{% else %}
+	{#<h3>  5- Parcourez de nouveau les produits mais dans l'ordre inverse</h3>#}
+	{#<ul>#}
+    	{#{% for product in products|reverse %}#}
+	    	{#{% if product.title=="" %}#}
+	    		{#<li>{{ "Titre par default"|upper }}: #}
+	    	{#{% else %}#}
 
-	        <li>{{ product.title|upper }}:
-	        {% endif %}
-		{{ product.description }}</li>
-		{% if loop.first %} (Ceci est le premier produit){% endif %}
+	        {#<li>{{ product.title|upper }}:#}
+	        {#{% endif %}#}
+		{#{{ product.description }}</li>#}
+		{#{% if loop.first %} (Ceci est le premier produit){% endif %}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3>  6- Parcourez de nouveau les produits mais affichez uniquement le produit 2 et 3</h3>
-	<ul>
-    	{% for product in products|slice(1, 2) %}
-	    	{% if product.title=="" %}
-	    		<li>{{ "Titre par default"|upper }}: 
-	    	{% else %}
+	{#<h3>  6- Parcourez de nouveau les produits mais affichez uniquement le produit 2 et 3</h3>#}
+	{#<ul>#}
+    	{#{% for product in products|slice(1, 2) %}#}
+	    	{#{% if product.title=="" %}#}
+	    		{#<li>{{ "Titre par default"|upper }}: #}
+	    	{#{% else %}#}
 
-	        <li>{{ product.title|upper }}:
-	        {% endif %}
-		{{ product.description }}</li>
-		{% if loop.first %} (Ceci est le premier produit){% endif %}
+	        {#<li>{{ product.title|upper }}:#}
+	        {#{% endif %}#}
+		{#{{ product.description }}</li>#}
+		{#{% if loop.first %} (Ceci est le premier produit){% endif %}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3> 7- Parcourez le tableau afin de faire le total des prix</h3>
-	<ul>
-		{% set foo = 0 %}
-    	{% for product in products %}
-    		{% set foo = foo + product.prix %}
-    	{% endfor %}
-    	<p>Total des prix : {{ foo }}</p>
-	</ul>
+	{#<h3> 7- Parcourez le tableau afin de faire le total des prix</h3>#}
+	{#<ul>#}
+		{#{% set foo = 0 %}#}
+    	{#{% for product in products %}#}
+    		{#{% set foo = foo + product.prix %}#}
+    	{#{% endfor %}#}
+    	{#<p>Total des prix : {{ foo }}</p>#}
+	{#</ul>#}
 
-	<h3>  8- Utiliser un filter afin d afficher en majuscule le titre des produits</h3>
-	<ul>
-    	{% for product in products|slice(1, 2) %}
-	    	{% if product.title=="" %}
-	    		<li>{{ "Titre par default"|upper }}: 
-	    	{% else %}
+	{#<h3>  8- Utiliser un filter afin d afficher en majuscule le titre des produits</h3>#}
+	{#<ul>#}
+    	{#{% for product in products|slice(1, 2) %}#}
+	    	{#{% if product.title=="" %}#}
+	    		{#<li>{{ "Titre par default"|upper }}: #}
+	    	{#{% else %}#}
 
-	        <li>{{ product.title|upper }}:
-	        {% endif %}
-		{{ product.description }}</li>
-		{% if loop.first %} (Ceci est le premier produit){% endif %}
+	        {#<li>{{ product.title|upper }}:#}
+	        {#{% endif %}#}
+		{#{{ product.description }}</li>#}
+		{#{% if loop.first %} (Ceci est le premier produit){% endif %}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3>  9- Trouver la fonction twig permettant de compter de 0 à 10 avec un pas de 2 ;)</h3>
-	<ul>
-    	{% for i in range(0,10,2) %}
-    		{{ i }}
+	{#<h3>  9- Trouver la fonction twig permettant de compter de 0 à 10 avec un pas de 2 ;)</h3>#}
+	{#<ul>#}
+    	{#{% for i in range(0,10,2) %}#}
+    		{#{{ i }}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3> 10- Créer une variable avec votre prénom dans le controller. Créer une autre variable avec votre nom dans le controller.</h3>
-	<ul>
-    	<li>{{ firstname }}</li>
-    	<li>{{ lastname }}</li>
-	</ul>
+	{#<h3> 10- Créer une variable avec votre prénom dans le controller. Créer une autre variable avec votre nom dans le controller.</h3>#}
+	{#<ul>#}
+    	{#<li>{{ firstname }}</li>#}
+    	{#<li>{{ lastname }}</li>#}
+	{#</ul>#}
 
-	<h3> 11- Afficher dans la vue votre prénom et votre nom en faisant une concaténation</h3>
-	<p>{{ firstname ~ lastname }}</p>
+	{#<h3> 11- Afficher dans la vue votre prénom et votre nom en faisant une concaténation</h3>#}
+	{#<p>{{ firstname ~ lastname }}</p>#}
 
-	<h3>   12- Afficher grâce à la catégorie test dans la documentation de twig, les produits impairs (ordre des produits dans le tableau)</h3>
-	<ul>
-    	{% for product in products %}
-    		{% if loop.index is not divisible by(2) %}
-		    	{% if product.title is empty %}
-		    		<li>{{ "Titre par default"|upper }}: 
-		    	{% else %}
+	{#<h3>   12- Afficher grâce à la catégorie test dans la documentation de twig, les produits impairs (ordre des produits dans le tableau)</h3>#}
+	{#<ul>#}
+    	{#{% for product in products %}#}
+    		{#{% if loop.index is not divisible by(2) %}#}
+		    	{#{% if product.title is empty %}#}
+		    		{#<li>{{ "Titre par default"|upper }}: #}
+		    	{#{% else %}#}
 
-		        <li>{{ product.title|upper }}:
-		        {% endif %}
-	        {% endif %}
+		        {#<li>{{ product.title|upper }}:#}
+		        {#{% endif %}#}
+	        {#{% endif %}#}
 
-		{{ product.description }}</li>
-		{% if loop.first %} (Ceci est le premier produit){% endif %}
+		{#{{ product.description }}</li>#}
+		{#{% if loop.first %} (Ceci est le premier produit){% endif %}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
-	<h3>  13- Corriger le code ci-dessous sans toucher au controller afin d eviter une erreur en utilisant la catégorie test</h3>
-	 {{ mischievous|default("Panda") }}
- {% if mischievous is defined %}
- 		<ul><li>{{ mischievous }}</li></ul>
-{% endif %}
+	{#<h3>  13- Corriger le code ci-dessous sans toucher au controller afin d eviter une erreur en utilisant la catégorie test</h3>#}
+	 {#{{ mischievous|default("Panda") }}#}
+ {#{% if mischievous is defined %}#}
+ 		{#<ul><li>{{ mischievous }}</li></ul>#}
+{#{% endif %}#}
 
-	<h3>  14- Parcourez de nouveau les produits mais afficher uniquement les produits ayant un titre</h3>
-	<ul>
-    	{% for product in products if product.title is not empty %}
+	{#<h3>  14- Parcourez de nouveau les produits mais afficher uniquement les produits ayant un titre</h3>#}
+	{#<ul>#}
+    	{#{% for product in products if product.title is not empty %}#}
 
-		        <li>{{ product.title|upper }}:
-					{{ product.description }}</li>
-		{% if loop.first %} (Ceci est le premier produit){% endif %}
+		        {#<li>{{ product.title|upper }}:#}
+					{#{{ product.description }}</li>#}
+		{#{% if loop.first %} (Ceci est le premier produit){% endif %}#}
 
-    	{% endfor %}
-	</ul>
+    	{#{% endfor %}#}
+	{#</ul>#}
 
 
 {% endblock %}

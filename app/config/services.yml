@@ -21,15 +21,20 @@ services:
             - { name: kernel.event_subscriber}
 
     admin.subscriber.signup.form:
-            class: adminBundle\Subscriber\SignUpFormSubscriber
-            tags:
-                - { name: kernel.event_subscriber}
+        class: adminBundle\Subscriber\SignUpFormSubscriber
+        tags:
+            - { name: kernel.event_subscriber}
 
     admin.subscriber.kernel.events:
-                class: adminBundle\Subscriber\KernelEventsSubscriber
-                arguments: [ '@twig', '@session' ]
-                tags:
-                    - { name: kernel.event_subscriber}
+        class: adminBundle\Subscriber\KernelEventsSubscriber
+        arguments: [ '@twig', '@session' ]
+        tags:
+            - { name: kernel.event_subscriber}
+
+    app.subscriber.consult.events:
+        class: AppBundle\Subscriber\ConsultEventSubscriber
+        tags:
+            - { name: kernel.event_subscriber}
 
     admin.services.utils.string:
         class: adminBundle\Services\Utils\StringService
@@ -58,10 +63,10 @@ services:
             - { name: doctrine.orm.entity_listener }
 
     admin.listener.user:
-            class: adminBundle\Listener\UserListener
-            arguments: ['@admin.services.upload', '@admin.services.deleteimg', '%default_img%']
-            tags:
-                - { name: doctrine.orm.entity_listener }
+        class: adminBundle\Listener\UserListener
+        arguments: ['@admin.services.upload', '@admin.services.deleteimg', '%default_img%']
+        tags:
+            - { name: doctrine.orm.entity_listener }
 
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
