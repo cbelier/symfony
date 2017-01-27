@@ -227,6 +227,22 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function searchbyName($data)
+    {
+        $results = $this
+            ->createQueryBuilder('product')
+            ->Select('product.id', 'product.titleFR')
+            ->Where('product.titleFR LIKE :title')
+            ->setParameters([
+                ':title' => "%$data%"
+            ])
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
+
+
+
 
 
 }

@@ -78,6 +78,9 @@
                     <li>
                         <a href="{{ path('panier')}}" class="basket"><i class="fa fa-shopping-basket" aria-hidden="true"></i>Panier: {{ app.session.get('nbArticle') }} Articles </a>
                     </li>
+                    <li>
+                        <input type="search" placeholder="Rechercher un produit">
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -98,7 +101,7 @@
             </div>
 
 
-            <div class="col-md-9">
+            <div class="col-md-9 mainContent">
                 {% block insertionLayout %}
                 {% endblock %}
             </div>
@@ -221,6 +224,56 @@
             }
 
         });</script>
+
+    <script>
+        var search = $('input[type="search"]');
+        search.on('keyup', searchAjax);
+
+        var donnee = '';
+
+        function searchAjax(e) {
+            var value = $(this).val();
+
+            $.ajax({
+                url: 'http://localhost/symfony/web/app_dev.php/fr/search/ajax',
+                data: 'data=' + value,
+                dataType: 'json',
+                success: onSuccess
+            });
+
+
+            function onSuccess(data) {
+                donnee = '<table class="table table-striped mainContent"><thead class="thead-inverse"><tr><th>Référence</th><th>Titre</th></tr></thead><tbody>';
+
+                $.each(data, createHtml);
+
+                donnee += '</tbody></td></table>';
+
+
+                $('.mainContent').html(donnee);
+
+
+
+                $('.ligne').on('click', function () {
+                    window.location.href = 'http://localhost/symfony/web/app_dev.php/fr/public/products/'+ $(this).data('id');
+                });
+
+
+            }
+
+            function createHtml(index, value)
+            {
+                donnee += '<tr class="ligne" data-id="' + value.id + '"><td>'+value.id+'</td>';
+
+                donnee += '<td>'+value.titleFR+'</td></tr>';
+
+                $('.mainContent').html(donnee);
+
+
+
+            }
+        }
+    </script>
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 

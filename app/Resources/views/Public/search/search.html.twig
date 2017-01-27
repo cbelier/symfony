@@ -1,0 +1,38 @@
+{% extends 'Public/PublicLayout.html.twig' %}
+
+{% block css %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block insertionLayout %}
+    <h1>Recherche</h1>
+    <form>
+        <input type="search">
+        <input type="submit">
+    </form>
+
+
+    <script src="{{ asset("public/js/jquery.js") }}"></script>
+
+
+    <script>
+        var search = $('input[type="search"]');
+        search.on('keyup', searchAjax);
+
+        function searchAjax(e) {
+            var value = $(this).val();
+
+            $.ajax({
+                url: 'http://localhost/symfony/web/app_dev.php/fr/search/ajax',
+                data: 'data=' + value,
+                dataType: 'json',
+                success: onSuccess
+            });
+            function onSuccess(data) {
+
+            }
+        }
+    </script>
+
+{% endblock %}
